@@ -249,7 +249,7 @@ VALUES (
         'email_contact',
         'contact@guerre-iran.com',
         'Email de contact'
-    ),
+    ),``
     (
         'articles_par_page',
         '10',

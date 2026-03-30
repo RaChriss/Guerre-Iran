@@ -35,6 +35,9 @@ $menuCategories = dbFetchAll(
 
     <title><?= pageTitle($metaTitle) ?></title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/style.css">
     <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/icons.css">
 </head>
@@ -46,32 +49,34 @@ $menuCategories = dbFetchAll(
     <header class="site-header">
         <div class="container">
             <div class="header-inner">
-                <a href="<?= SITE_URL ?>" class="site-logo">
+                <a href="<?= SITE_URL ?>" class="site-logo" aria-label="Accueil <?= e($siteName) ?>">
+                    <span class="logo-mark">GI</span>
                     <span class="logo-text"><?= e($siteName) ?></span>
                 </a>
 
-                <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+                <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="main-navigation">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
 
-                <nav class="main-nav" role="navigation" aria-label="Navigation principale">
+                <nav class="main-nav" id="main-navigation" role="navigation" aria-label="Navigation principale">
                     <ul class="nav-list">
-                        <li><a href="<?= SITE_URL ?>/" class="nav-link">Accueil</a></li>
-                        <li><a href="<?= SITE_URL ?>/articles.html" class="nav-link">Articles</a></li>
+                        <li class="nav-item"><a href="<?= SITE_URL ?>/" class="nav-link">Accueil</a></li>
+                        <li class="nav-item"><a href="<?= SITE_URL ?>/articles.html" class="nav-link">Articles</a></li>
                         <?php foreach ($menuCategories as $cat): ?>
-                            <li>
+                            <li class="nav-item">
                                 <a href="<?= categoryUrl($cat) ?>" class="nav-link">
                                     <?= e($cat['nom']) ?>
                                 </a>
                             </li>
                         <?php endforeach; ?>
-                        <li><a href="<?= SITE_URL ?>/chronologie.html" class="nav-link">Chronologie</a></li>
+                        <li class="nav-item"><a href="<?= SITE_URL ?>/chronologie.html" class="nav-link">Chronologie</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
+        <div class="nav-backdrop" aria-hidden="true"></div>
     </header>
 
     <main id="main-content" class="site-main">

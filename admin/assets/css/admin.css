@@ -899,3 +899,107 @@ select.form-control {
         font-size: 0.875rem;
     }
 }
+
+/* ========================================
+   Alignement Design Admin projet "Guerre"
+   ======================================== */
+:root {
+    --primary-color: #1a1f2b;
+    --primary-dark: #11141c;
+    --primary-light: #2a2f3b;
+    --secondary-color: #8b0000;
+    --secondary-dark: #6d0000;
+    --accent-color: #c2b280;
+    --bg-color: #f4f6f9;
+    --bg-card: #ffffff;
+    --text-color: #1c1c1c;
+    --text-light: #666666;
+    --border-color: #e2e6ec;
+}
+
+body,
+.admin-body {
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.admin-wrapper {
+    background: var(--bg-color);
+}
+
+.admin-sidebar {
+    background: var(--primary-color);
+}
+
+.sidebar-header {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.logo-icon {
+    background: var(--accent-color);
+    color: #2b2208;
+}
+
+.sidebar-nav .nav-link.active {
+    border-left: 3px solid var(--secondary-color);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-header {
+    background: #ffffff;
+    color: var(--text-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-title h1 {
+    color: var(--text-color);
+}
+
+.sidebar-toggle {
+    border-color: #d4dae3;
+    background: #ffffff;
+}
+
+.sidebar-toggle span {
+    background: var(--primary-color);
+}
+
+.btn-outline {
+    background: #ffffff;
+    color: var(--text-color);
+    border-color: #d7dde7;
+}
+
+.btn-outline:hover {
+    background: #f7f9fc;
+}
+
+.user-dropdown-toggle {
+    border-color: #d7dde7;
+    background: #ffffff;
+    color: var(--text-color);
+}
+
+.admin-content {
+    padding: 24px;
+}
+
+.card,
+.admin-card,
+.admin-table,
+.modal-content {
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary {
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
+    box-shadow: none;
+}
+
+.btn-primary:hover {
+    background: var(--secondary-dark);
+    border-color: var(--secondary-dark);
+}
