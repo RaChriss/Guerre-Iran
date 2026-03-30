@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: guerre-iran-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ../public:/var/www/html/public
+      - ../admin:/var/www/html/admin
+      - ../includes:/var/www/html/includes
+      - ../templates:/var/www/html/templates
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=guerre_iran
+      - DB_USER=admin
+      - DB_PASS=admin123
+    networks:
+      - guerre-iran-network
+
+  db:
+    image: postgres:15-alpine
+    container_name: guerre-iran-db
+    environment:
+      POSTGRES_DB: guerre_iran
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - guerre-iran-network
+
+  adminer:
+    image: adminer
+    container_name: guerre-iran-adminer
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+    networks:
+      - guerre-iran-network
+
+networks:
+  guerre-iran-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

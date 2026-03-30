@@ -1,0 +1,62 @@
+Options +FollowSymlinks
+RewriteEngine On
+RewriteBase /
+
+# Empêcher l'accès direct aux fichiers PHP internes
+RewriteRule ^includes/ - [F,L]
+RewriteRule ^templates/ - [F,L]
+
+# Ne pas traiter les fichiers et répertoires existants
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Page d'accueil
+RewriteRule ^index\.html$ index.php [L]
+
+# Liste des articles avec pagination
+RewriteRule ^articles\.html$ index.php?page=articles [L]
+RewriteRule ^articles/page-([0-9]+)\.html$ index.php?page=articles&p=$1 [L]
+
+# Article détail : /article-mon-titre-123.html
+RewriteRule ^article-([a-z0-9-]+)-([0-9]+)\.html$ index.php?page=article&slug=$1&id=$2 [L]
+
+# Catégorie : /categorie-actualites-1.html
+RewriteRule ^categorie-([a-z0-9-]+)-([0-9]+)\.html$ index.php?page=categorie&slug=$1&id=$2 [L]
+RewriteRule ^categorie-([a-z0-9-]+)-([0-9]+)/page-([0-9]+)\.html$ index.php?page=categorie&slug=$1&id=$2&p=$3 [L]
+
+# Chronologie
+RewriteRule ^chronologie\.html$ index.php?page=chronologie [L]
+
+# Sitemap XML
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+# Pages statiques : /a-propos.html, /contact.html, etc.
+RewriteRule ^([a-z0-9-]+)\.html$ index.php?page=static&slug=$1 [L]
+
+# Redirection des erreurs
+ErrorDocument 404 /index.php?page=404
+ErrorDocument 403 /index.php?page=403
+ErrorDocument 500 /index.php?page=500
+
+# Sécurité : Empêcher l'accès aux fichiers sensibles
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Cache des ressources statiques
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+</IfModule>
+
+# Compression GZIP
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json
+</IfModule>
