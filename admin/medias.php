@@ -16,7 +16,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
         dbExecute("DELETE FROM medias WHERE id = ?", [$id]);
         setFlash('success', 'Média supprimé.');
     }
-    redirect(ADMIN_URL . '/medias.php');
+    redirect(ADMIN_URL . '/medias');
 }
 
 // Upload
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['fichier']['name']))
     } else {
         setFlash('error', 'Erreur lors de l\'upload.');
     }
-    redirect(ADMIN_URL . '/medias.php');
+    redirect(ADMIN_URL . '/medias');
 }
 
 $medias = dbFetchAll("SELECT * FROM medias ORDER BY date_upload DESC");
@@ -50,7 +50,7 @@ include __DIR__ . '/includes/header.php';
     </div>
     <div class="card-body">
         <form method="POST" action="" enctype="multipart/form-data">
-            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 16px; align-items: end;">
+            <div class="grid-media-filters">
                 <div class="form-group mb-0">
                     <label for="fichier">Fichier image</label>
                     <input type="file" id="fichier" name="fichier" accept="image/*" class="form-control" required>
@@ -76,29 +76,26 @@ include __DIR__ . '/includes/header.php';
     </div>
     <div class="card-body">
         <?php if (empty($medias)): ?>
-            <p class="text-muted text-center" style="padding: 40px;">Aucun média uploadé.</p>
+            <p class="text-muted text-center empty-message-lg">Aucun média uploadé.</p>
         <?php else: ?>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px;">
+            <div class="grid-media-gallery">
                 <?php foreach ($medias as $media): ?>
-                    <div style="border: 1px solid var(--border-color); border-radius: var(--border-radius); overflow: hidden;">
-                        <div
-                            style="height: 120px; background: var(--bg-color); display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                            <img src="<?= UPLOADS_URL . '/' . e($media['fichier']) ?>" alt="<?= e($media['alt_text']) ?>"
-                                style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                    <div class="media-card">
+                        <div class="media-card-preview">
+                            <img src="<?= UPLOADS_URL . '/' . e($media['fichier']) ?>" alt="<?= e($media['alt_text']) ?>">
                         </div>
-                        <div style="padding: 10px;">
-                            <p
-                                style="font-size: 0.875rem; margin: 0 0 4px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <div class="media-card-info">
+                            <p class="media-card-title">
                                 <?= e($media['nom']) ?>
                             </p>
-                            <p style="font-size: 0.75rem; color: var(--text-light); margin: 0;">
+                            <p class="media-card-meta">
                                 <?= number_format($media['taille'] / 1024, 1) ?> Ko
                             </p>
                             <div class="d-flex gap-1 mt-1">
                                 <button class="btn btn-sm btn-outline"
                                     onclick="copyToClipboard('<?= UPLOADS_URL . '/' . e($media['fichier']) ?>')"
                                     title="Copier l'URL">📋</button>
-                                <a href="<?= ADMIN_URL ?>/medias.php?delete=<?= $media['id'] ?>" class="btn btn-sm btn-danger"
+                                <a href="<?= ADMIN_URL ?>/medias?delete=<?= $media['id'] ?>" class="btn btn-sm btn-danger"
                                     data-confirm="Supprimer ce média ?">🗑️</a>
                             </div>
                         </div>

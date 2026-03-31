@@ -59,6 +59,37 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Dropdown catégories (desktop + mobile)
+    const dropdown = document.querySelector('.nav-dropdown');
+    const dropdownToggle = document.querySelector('.nav-dropdown-toggle');
+    const dropdownMenu = document.querySelector('.nav-dropdown-menu');
+
+    const closeDropdown = function () {
+        if (!dropdown || !dropdownToggle || !dropdownMenu) return;
+        dropdown.classList.remove('open');
+        dropdownToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    if (dropdown && dropdownToggle && dropdownMenu) {
+        dropdownToggle.addEventListener('click', function (e) {
+            e.preventDefault();
+            const isOpen = dropdown.classList.toggle('open');
+            dropdownToggle.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!dropdown.contains(e.target)) {
+                closeDropdown();
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeDropdown();
+            }
+        });
+    }
+
     // Lazy loading des images (fallback pour anciens navigateurs)
     if ('loading' in HTMLImageElement.prototype) {
         // Browser supports native lazy loading

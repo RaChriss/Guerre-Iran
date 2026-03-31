@@ -51,8 +51,8 @@ $siteName = getConfig('nom_site', 'Guerre Iran');
                                 class="user-name"><?= e($_SESSION['admin_name'] ?: $_SESSION['admin_username']) ?></span>
                         </button>
                         <div class="user-dropdown-menu">
-                            <a href="<?= ADMIN_URL ?>/profil.php">Mon profil</a>
-                            <a href="<?= ADMIN_URL ?>/logout.php" class="text-danger">Déconnexion</a>
+                            <a href="<?= ADMIN_URL ?>/profil">Mon profil</a>
+                            <a href="<?= ADMIN_URL ?>/logout" class="text-danger">Déconnexion</a>
                         </div>
                     </div>
                 </div>

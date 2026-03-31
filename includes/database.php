@@ -2,9 +2,11 @@
 /**
  * Connexion à la base de données PostgreSQL
  * Utilise PDO pour une connexion sécurisée
+ * Intègre le système de cache pour optimiser les performances
  */
 
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/cache.php';
 
 class Database
 {
@@ -120,4 +122,43 @@ function dbCount(string $table, string $where = '', array $params = []): int
     }
     $result = dbFetchOne($sql, $params);
     return (int) ($result['count'] ?? 0);
+}
+
+/**
+ * Exécuter une requête SELECT avec cache et retourner tous les résultats
+ */
+function dbFetchAllCached(string $sql, array $params = [], ?int $ttl = null, ?string $cacheKey = null): array
+{
+    $ttl = $ttl ?? CACHE_TTL;
+    $key = $cacheKey ?? 'db:query:' . md5($sql . serialize($params));
+
+    return cacheRemember($key, function () use ($sql, $params) {
+        return dbFetchAll($sql, $params);
+    }, $ttl);
+}
+
+/**
+ * Exécuter une requête SELECT avec cache et retourner un seul résultat
+ */
+function dbFetchOneCached(string $sql, array $params = [], ?int $ttl = null, ?string $cacheKey = null): ?array
+{
+    $ttl = $ttl ?? CACHE_TTL;
+    $key = $cacheKey ?? 'db:query:' . md5($sql . serialize($params));
+
+    return cacheRemember($key, function () use ($sql, $params) {
+        return dbFetchOne($sql, $params);
+    }, $ttl);
+}
+
+/**
+ * Compter avec cache
+ */
+function dbCountCached(string $table, string $where = '', array $params = [], ?int $ttl = null): int
+{
+    $ttl = $ttl ?? CACHE_TTL;
+    $key = 'db:count:' . md5($table . $where . serialize($params));
+
+    return cacheRemember($key, function () use ($table, $where, $params) {
+        return dbCount($table, $where, $params);
+    }, $ttl);
 }

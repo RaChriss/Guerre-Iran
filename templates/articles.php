@@ -17,35 +17,45 @@ if ($categorieFilter) {
     $params[] = $categorieFilter;
 }
 
-// Total articles
-$total = dbFetchOne(
+// Clé de cache unique basée sur les filtres et pagination
+$cacheKey = "articles:list:cat{$categorieFilter}:page{$currentPage}";
+
+// Total articles (avec cache)
+$total = dbFetchOneCached(
     "SELECT COUNT(*) as count FROM articles a {$whereClause}",
-    $params
+    $params,
+    CACHE_TTL_SHORT,
+    "articles:count:cat{$categorieFilter}"
 )['count'];
 
-// Récupération des articles
-$articles = dbFetchAll(
+// Récupération des articles (avec cache)
+$articles = dbFetchAllCached(
     "SELECT a.*, c.nom as categorie_nom, c.slug as categorie_slug, c.id as categorie_id
      FROM articles a
      LEFT JOIN categories c ON a.categorie_id = c.id
      {$whereClause}
      ORDER BY a.date_publication DESC
      LIMIT {$perPage} OFFSET {$offset}",
-    $params
+    $params,
+    CACHE_TTL_SHORT,
+    $cacheKey
 );
 
-// Catégories pour le filtre
-$categories = dbFetchAll(
+// Catégories pour le filtre (cache long)
+$categories = dbFetchAllCached(
     "SELECT c.*, COUNT(a.id) as nb_articles
      FROM categories c
      LEFT JOIN articles a ON c.id = a.categorie_id AND a.statut = 'publie'
      WHERE c.actif = TRUE
      GROUP BY c.id
-     ORDER BY c.nom"
+     ORDER BY c.nom",
+    [],
+    CACHE_TTL,
+    'articles:sidebar_categories'
 );
 
 // Pagination
-$pagination = paginate($total, $perPage, $currentPage, SITE_URL . '/articles/page-{page}.html');
+$pagination = paginate($total, $perPage, $currentPage, SITE_URL . '/articles/page/{page}');
 
 $metaTitle = 'Tous les articles';
 $metaDescription = 'Découvrez tous nos articles sur la situation en Iran : actualités, analyses, témoignages et plus encore.';
@@ -126,7 +136,7 @@ include INCLUDES_PATH . '/header.php';
                 <h2 class="widget-title">Catégories</h2>
                 <ul class="category-list">
                     <li>
-                        <a href="<?= SITE_URL ?>/articles.html" class="<?= !$categorieFilter ? 'active' : '' ?>">
+                        <a href="<?= SITE_URL ?>/articles" class="<?= !$categorieFilter ? 'active' : '' ?>">
                             Toutes les catégories
                         </a>
                     </li>

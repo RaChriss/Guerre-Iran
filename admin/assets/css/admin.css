@@ -1003,3 +1003,167 @@ body,
     background: var(--secondary-dark);
     border-color: var(--secondary-dark);
 }
+
+/* ========================================
+   Classes utilitaires supplémentaires
+   ======================================== */
+
+/* Grilles */
+.grid-2-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.grid-2-1-cols {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+}
+
+.grid-media-filters {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 16px;
+    align-items: end;
+}
+
+.grid-media-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+.grid-form-2-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Flexbox */
+.flex-wrap-gap {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* Card body sans padding */
+.card-body-flush {
+    padding: 0;
+}
+
+/* Message vide centré */
+.empty-message {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-light);
+}
+
+.empty-message-lg {
+    text-align: center;
+    padding: 40px;
+}
+
+/* Colonnes tableaux */
+.col-actions {
+    width: 120px;
+}
+
+.col-actions-sm {
+    width: 100px;
+}
+
+.col-id {
+    width: 50px;
+}
+
+.col-order {
+    width: 50px;
+}
+
+.col-status {
+    width: 100px;
+    text-align: right;
+}
+
+.col-status-sm {
+    width: 80px;
+    text-align: right;
+}
+
+/* Formulaires avec largeur limitée */
+.form-control-sm-width {
+    max-width: 100px;
+}
+
+.form-control-md-width {
+    max-width: 150px;
+}
+
+.form-control-lg-width {
+    max-width: 180px;
+}
+
+.form-control-xl-width {
+    max-width: 200px;
+}
+
+/* Card médias */
+.media-card {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.media-card-preview {
+    height: 120px;
+    background: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.media-card-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.media-card-info {
+    padding: 10px;
+}
+
+.media-card-title {
+    font-size: 0.875rem;
+    margin: 0 0 4px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.media-card-meta {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin: 0;
+}
+
+/* Card filtres */
+.card-filters {
+    background: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Responsive pour grilles */
+@media (max-width: 768px) {
+    .grid-2-cols,
+    .grid-2-1-cols,
+    .grid-form-2-cols {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-media-filters {
+        grid-template-columns: 1fr;
+    }
+}

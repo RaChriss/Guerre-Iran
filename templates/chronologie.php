@@ -3,12 +3,15 @@
  * Template Chronologie
  */
 
-// Récupération des événements groupés par année
-$evenements = dbFetchAll(
+// Récupération des événements groupés par année (avec cache)
+$evenements = dbFetchAllCached(
     "SELECT *, EXTRACT(YEAR FROM date_evenement) as annee
      FROM evenements
      WHERE actif = TRUE
-     ORDER BY date_evenement DESC"
+     ORDER BY date_evenement DESC",
+    [],
+    CACHE_TTL,
+    'chronologie:all_events'
 );
 
 // Grouper par année

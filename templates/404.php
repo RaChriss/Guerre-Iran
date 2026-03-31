@@ -18,7 +18,7 @@ include INCLUDES_PATH . '/header.php';
 
             <div class="error-actions">
                 <a href="<?= SITE_URL ?>/" class="btn btn-primary">Retour à l'accueil</a>
-                <a href="<?= SITE_URL ?>/articles.html" class="btn btn-outline">Voir les articles</a>
+                <a href="<?= SITE_URL ?>/articles" class="btn btn-outline">Voir les articles</a>
             </div>
         </div>
     </div>

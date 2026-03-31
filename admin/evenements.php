@@ -17,7 +17,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
         dbExecute("DELETE FROM evenements WHERE id = ?", [$id]);
         setFlash('success', 'Événement supprimé.');
     }
-    redirect(ADMIN_URL . '/evenements.php');
+    redirect(ADMIN_URL . '/evenements');
 }
 
 $evenements = dbFetchAll(
@@ -30,7 +30,7 @@ include __DIR__ . '/includes/header.php';
 <div class="card">
     <div class="card-header">
         <h2 class="card-title">Chronologie des événements</h2>
-        <a href="<?= ADMIN_URL ?>/evenement-edit.php" class="btn btn-primary">+ Nouvel événement</a>
+        <a href="<?= ADMIN_URL ?>/evenement/nouveau" class="btn btn-primary">+ Nouvel événement</a>
     </div>
 
     <div class="table-responsive">
@@ -41,15 +41,15 @@ include __DIR__ . '/includes/header.php';
                     <th>Titre</th>
                     <th>Source</th>
                     <th>Statut</th>
-                    <th style="width: 100px;">Actions</th>
+                    <th class="col-actions-sm">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($evenements)): ?>
                     <tr>
-                        <td colspan="5" style="text-align: center; padding: 40px;">
+                        <td colspan="5" class="empty-message-lg">
                             <p class="text-muted">Aucun événement.</p>
-                            <a href="<?= ADMIN_URL ?>/evenement-edit.php" class="btn btn-primary mt-2">Ajouter un
+                            <a href="<?= ADMIN_URL ?>/evenement/nouveau" class="btn btn-primary mt-2">Ajouter un
                                 événement</a>
                         </td>
                     </tr>
@@ -58,7 +58,7 @@ include __DIR__ . '/includes/header.php';
                         <tr>
                             <td><strong><?= formatDate($evt['date_evenement'], 'd/m/Y') ?></strong></td>
                             <td>
-                                <a href="<?= ADMIN_URL ?>/evenement-edit.php?id=<?= $evt['id'] ?>">
+                                <a href="<?= ADMIN_URL ?>/evenement/<?= $evt['id'] ?>">
                                     <?= e($evt['titre']) ?>
                                 </a>
                             </td>
@@ -72,10 +72,9 @@ include __DIR__ . '/includes/header.php';
                             </td>
                             <td>
                                 <div class="actions">
-                                    <a href="<?= ADMIN_URL ?>/evenement-edit.php?id=<?= $evt['id'] ?>"
-                                        class="btn btn-sm btn-outline">✏️</a>
-                                    <a href="<?= ADMIN_URL ?>/evenements.php?delete=<?= $evt['id'] ?>"
-                                        class="btn btn-sm btn-danger" data-confirm="Supprimer cet événement ?">🗑️</a>
+                                    <a href="<?= ADMIN_URL ?>/evenement/<?= $evt['id'] ?>" class="btn btn-sm btn-outline">✏️</a>
+                                    <a href="<?= ADMIN_URL ?>/evenements?delete=<?= $evt['id'] ?>" class="btn btn-sm btn-danger"
+                                        data-confirm="Supprimer cet événement ?">🗑️</a>
                                 </div>
                             </td>
                         </tr>

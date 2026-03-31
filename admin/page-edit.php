@@ -14,7 +14,7 @@ if ($isEdit) {
     $page = dbFetchOne("SELECT * FROM pages WHERE id = ?", [$id]);
     if (!$page) {
         setFlash('error', 'Page introuvable.');
-        redirect(ADMIN_URL . '/pages.php');
+        redirect(ADMIN_URL . '/pages');
     }
 }
 
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
             setFlash('success', 'Page créée.');
         }
-        redirect(ADMIN_URL . '/pages.php');
+        redirect(ADMIN_URL . '/pages');
     }
 }
 
@@ -85,7 +85,7 @@ include __DIR__ . '/includes/header.php';
             <div class="form-group">
                 <label for="slug">Slug (URL)</label>
                 <input type="text" id="slug" name="slug" value="<?= e($data['slug']) ?>" class="form-control">
-                <div class="form-hint">URL : /<?= e($data['slug'] ?: 'slug') ?>.html</div>
+                <div class="form-hint">URL : /<?= e($data['slug'] ?: 'slug') ?></div>
             </div>
 
             <div class="form-group">
@@ -116,7 +116,7 @@ include __DIR__ . '/includes/header.php';
             </div>
 
             <div class="d-flex justify-between mt-3">
-                <a href="<?= ADMIN_URL ?>/pages.php" class="btn btn-outline">← Retour</a>
+                <a href="<?= ADMIN_URL ?>/pages" class="btn btn-outline">← Retour</a>
                 <button type="submit" class="btn btn-primary"><?= $isEdit ? 'Enregistrer' : 'Créer' ?></button>
             </div>
         </form>

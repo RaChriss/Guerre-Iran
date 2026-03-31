@@ -264,18 +264,21 @@ function deleteUploadedFile(string $path): bool
 }
 
 /**
- * Obtenir la configuration du site
+ * Obtenir la configuration du site (avec cache)
  */
 function getConfig(string $key, $default = null)
 {
     static $config = null;
 
     if ($config === null) {
-        $rows = dbFetchAll("SELECT cle, valeur FROM configuration");
-        $config = [];
-        foreach ($rows as $row) {
-            $config[$row['cle']] = $row['valeur'];
-        }
+        $config = cacheRemember('config:all', function () {
+            $rows = dbFetchAll("SELECT cle, valeur FROM configuration");
+            $configData = [];
+            foreach ($rows as $row) {
+                $configData[$row['cle']] = $row['valeur'];
+            }
+            return $configData;
+        }, CACHE_TTL_LONG);
     }
 
     return $config[$key] ?? $default;
@@ -298,7 +301,7 @@ function pageTitle(string $title = ''): string
  */
 function articleUrl(array $article): string
 {
-    return SITE_URL . '/article-' . $article['slug'] . '-' . $article['id'] . '.html';
+    return SITE_URL . '/article/' . $article['slug'] . '-' . $article['id'];
 }
 
 /**
@@ -306,7 +309,7 @@ function articleUrl(array $article): string
  */
 function categoryUrl(array $category): string
 {
-    return SITE_URL . '/categorie-' . $category['slug'] . '-' . $category['id'] . '.html';
+    return SITE_URL . '/categorie/' . $category['slug'] . '-' . $category['id'];
 }
 
 /**

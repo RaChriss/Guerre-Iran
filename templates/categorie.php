@@ -3,10 +3,12 @@
  * Template Catégorie
  */
 
-// Récupération de la catégorie
-$categorie = dbFetchOne(
+// Récupération de la catégorie (avec cache long)
+$categorie = dbFetchOneCached(
     "SELECT * FROM categories WHERE id = ? AND actif = TRUE",
-    [$id]
+    [$id],
+    CACHE_TTL_LONG,
+    "categorie:detail:{$id}"
 );
 
 if (!$categorie) {
@@ -18,25 +20,29 @@ if (!$categorie) {
 $perPage = (int) getConfig('articles_par_page', 10);
 $offset = ($currentPage - 1) * $perPage;
 
-// Total articles
-$total = dbFetchOne(
+// Total articles (avec cache)
+$total = dbFetchOneCached(
     "SELECT COUNT(*) as count FROM articles WHERE categorie_id = ? AND statut = 'publie'",
-    [$id]
+    [$id],
+    CACHE_TTL_SHORT,
+    "categorie:count:{$id}"
 )['count'];
 
-// Articles de la catégorie
-$articles = dbFetchAll(
+// Articles de la catégorie (avec cache)
+$articles = dbFetchAllCached(
     "SELECT a.*, c.nom as categorie_nom
      FROM articles a
      LEFT JOIN categories c ON a.categorie_id = c.id
      WHERE a.categorie_id = ? AND a.statut = 'publie'
      ORDER BY a.date_publication DESC
      LIMIT {$perPage} OFFSET {$offset}",
-    [$id]
+    [$id],
+    CACHE_TTL_SHORT,
+    "categorie:articles:{$id}:page{$currentPage}"
 );
 
 // Pagination
-$pagination = paginate($total, $perPage, $currentPage, SITE_URL . '/categorie-' . $categorie['slug'] . '-' . $id . '/page-{page}.html');
+$pagination = paginate($total, $perPage, $currentPage, SITE_URL . '/categorie/' . $categorie['slug'] . '-' . $id . '/page/{page}');
 
 $metaTitle = $categorie['nom'];
 $metaDescription = $categorie['description'] ?: 'Découvrez tous les articles de la catégorie ' . $categorie['nom'];
@@ -49,7 +55,7 @@ include INCLUDES_PATH . '/header.php';
         <nav class="breadcrumb" aria-label="Fil d'Ariane">
             <a href="<?= SITE_URL ?>/">Accueil</a>
             <span>&gt;</span>
-            <a href="<?= SITE_URL ?>/articles.html">Articles</a>
+            <a href="<?= SITE_URL ?>/articles">Articles</a>
             <span>&gt;</span>
             <span aria-current="page"><?= e($categorie['nom']) ?></span>
         </nav>
@@ -66,7 +72,7 @@ include INCLUDES_PATH . '/header.php';
     <?php if (empty($articles)): ?>
         <div class="empty-state">
             <p>Aucun article dans cette catégorie pour le moment.</p>
-            <a href="<?= SITE_URL ?>/articles.html" class="btn btn-primary">Voir tous les articles</a>
+            <a href="<?= SITE_URL ?>/articles" class="btn btn-primary">Voir tous les articles</a>
         </div>
     <?php else: ?>
         <div class="articles-grid">

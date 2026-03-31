@@ -16,7 +16,7 @@ if ($isEdit) {
     $article = dbFetchOne("SELECT * FROM articles WHERE id = ?", [$id]);
     if (!$article) {
         setFlash('error', 'Article introuvable.');
-        redirect(ADMIN_URL . '/articles.php');
+        redirect(ADMIN_URL . '/articles');
     }
 }
 
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $data['alt_image'],
                     $data['categorie_id'],
                     $data['statut'],
-                    $data['mise_en_avant'],
+                    $data['mise_en_avant'] ? 'true' : 'false',
                     $datePublication,
                     $data['meta_titre'],
                     $data['meta_description'],
@@ -150,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $data['categorie_id'],
                     $_SESSION['admin_id'],
                     $data['statut'],
-                    $data['mise_en_avant'],
+                    $data['mise_en_avant'] ? 'true' : 'false',
                     $datePublication,
                     $data['meta_titre'],
                     $data['meta_description'],
@@ -161,7 +161,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             setFlash('success', 'Article créé avec succès.');
         }
 
-        redirect(ADMIN_URL . '/article-edit.php?id=' . $id);
+        // Invalider le cache après modification
+        cacheFlush();
+
+        redirect(ADMIN_URL . '/article/' . $id);
     }
 }
 
@@ -173,7 +176,7 @@ include __DIR__ . '/includes/header.php';
 <form method="POST" action="" enctype="multipart/form-data">
     <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
 
-    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+    <div class="grid-2-1-cols">
         <!-- Colonne principale -->
         <div>
             <div class="card mb-3">
@@ -191,7 +194,7 @@ include __DIR__ . '/includes/header.php';
                         <label for="slug">Slug (URL)</label>
                         <input type="text" id="slug" name="slug" value="<?= e($data['slug']) ?>" class="form-control"
                             placeholder="Généré automatiquement">
-                        <div class="form-hint">L'URL sera : /article-<em>slug</em>-<?= $id ?: 'ID' ?>.html</div>
+                        <div class="form-hint">L'URL sera : /article/<em>slug</em>-<?= $id ?: 'ID' ?></div>
                     </div>
 
                     <div class="form-group">
@@ -346,7 +349,7 @@ Paragraphe avec **gras** et *italique*.
     </div>
 
     <div class="mt-3 d-flex justify-between">
-        <a href="<?= ADMIN_URL ?>/articles.php" class="btn btn-outline">← Retour à la liste</a>
+        <a href="<?= ADMIN_URL ?>/articles" class="btn btn-outline">← Retour à la liste</a>
         <button type="submit" class="btn btn-primary">
             <?= $isEdit ? 'Enregistrer' : 'Créer' ?>
         </button>

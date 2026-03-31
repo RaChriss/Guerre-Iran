@@ -9,14 +9,14 @@ require_once __DIR__ . '/../../includes/functions.php';
 // Vérifier si l'utilisateur est connecté
 if (!isLoggedIn()) {
     setFlash('error', 'Veuillez vous connecter pour accéder à cette page.');
-    redirect(ADMIN_URL . '/login.php');
+    redirect(ADMIN_URL . '/login');
 }
 
 // Vérifier si l'utilisateur existe toujours et est actif
 $currentUser = getCurrentUser();
 if (!$currentUser) {
     session_destroy();
-    redirect(ADMIN_URL . '/login.php');
+    redirect(ADMIN_URL . '/login');
 }
 
 // Mettre à jour la dernière connexion

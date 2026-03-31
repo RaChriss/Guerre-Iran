@@ -3,39 +3,51 @@
  * Template Page d'accueil
  */
 
-// Articles mis en avant
-$articlesEnAvant = dbFetchAll(
+// Articles mis en avant (cache court car mis à jour fréquemment)
+$articlesEnAvant = dbFetchAllCached(
     "SELECT a.*, c.nom as categorie_nom, c.slug as categorie_slug
      FROM articles a
      LEFT JOIN categories c ON a.categorie_id = c.id
      WHERE a.statut = 'publie' AND a.mise_en_avant = TRUE
      ORDER BY a.date_publication DESC
-     LIMIT 3"
+     LIMIT 3",
+    [],
+    CACHE_TTL_SHORT,
+    'home:articles_en_avant'
 );
 
-// Derniers articles
-$derniersArticles = dbFetchAll(
+// Derniers articles (cache court)
+$derniersArticles = dbFetchAllCached(
     "SELECT a.*, c.nom as categorie_nom, c.slug as categorie_slug
      FROM articles a
      LEFT JOIN categories c ON a.categorie_id = c.id
      WHERE a.statut = 'publie'
      ORDER BY a.date_publication DESC
-     LIMIT 6"
+     LIMIT 6",
+    [],
+    CACHE_TTL_SHORT,
+    'home:derniers_articles'
 );
 
-// Catégories actives
-$categories = dbFetchAll(
+// Catégories actives (cache long car rarement modifié)
+$categories = dbFetchAllCached(
     "SELECT c.*, COUNT(a.id) as nb_articles
      FROM categories c
      LEFT JOIN articles a ON c.id = a.categorie_id AND a.statut = 'publie'
      WHERE c.actif = TRUE
      GROUP BY c.id
-     ORDER BY c.ordre, c.nom"
+     ORDER BY c.ordre, c.nom",
+    [],
+    CACHE_TTL,
+    'home:categories'
 );
 
-// Derniers événements
-$evenements = dbFetchAll(
-    "SELECT * FROM evenements WHERE actif = TRUE ORDER BY date_evenement DESC LIMIT 4"
+// Derniers événements (cache moyen)
+$evenements = dbFetchAllCached(
+    "SELECT * FROM evenements WHERE actif = TRUE ORDER BY date_evenement DESC LIMIT 4",
+    [],
+    CACHE_TTL_SHORT,
+    'home:evenements'
 );
 
 $metaTitle = '';
@@ -83,7 +95,7 @@ include INCLUDES_PATH . '/header.php';
     <section class="section" aria-labelledby="latest-articles">
         <div class="section-header">
             <h2 id="latest-articles">Derniers articles</h2>
-            <a href="<?= SITE_URL ?>/articles.html" class="section-link">Voir tous les articles →</a>
+            <a href="<?= SITE_URL ?>/articles" class="section-link">Voir tous les articles →</a>
         </div>
 
         <div class="articles-grid">
@@ -135,7 +147,7 @@ include INCLUDES_PATH . '/header.php';
         <section class="section section-timeline" aria-labelledby="timeline-title">
             <div class="section-header">
                 <h2 id="timeline-title">Chronologie récente</h2>
-                <a href="<?= SITE_URL ?>/chronologie.html" class="section-link">Voir la chronologie complète →</a>
+                <a href="<?= SITE_URL ?>/chronologie" class="section-link">Voir la chronologie complète →</a>
             </div>
 
             <div class="timeline-preview">

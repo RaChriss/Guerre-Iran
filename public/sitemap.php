@@ -19,14 +19,14 @@ echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 
     <!-- Page articles -->
     <url>
-        <loc><?= SITE_URL ?>/articles.html</loc>
+        <loc><?= SITE_URL ?>/articles</loc>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
 
     <!-- Chronologie -->
     <url>
-        <loc><?= SITE_URL ?>/chronologie.html</loc>
+        <loc><?= SITE_URL ?>/chronologie</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -39,7 +39,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
     foreach ($articles as $article):
         ?>
         <url>
-            <loc><?= SITE_URL ?>/article-<?= e($article['slug']) ?>-<?= $article['id'] ?>.html</loc>
+            <loc><?= SITE_URL ?>/article/<?= e($article['slug']) ?>-<?= $article['id'] ?></loc>
             <lastmod><?= date('Y-m-d', strtotime($article['date_modification'])) ?></lastmod>
             <changefreq>monthly</changefreq>
             <priority>0.7</priority>
@@ -52,7 +52,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
     foreach ($categories as $cat):
         ?>
         <url>
-            <loc><?= SITE_URL ?>/categorie-<?= e($cat['slug']) ?>-<?= $cat['id'] ?>.html</loc>
+            <loc><?= SITE_URL ?>/categorie/<?= e($cat['slug']) ?>-<?= $cat['id'] ?></loc>
             <changefreq>weekly</changefreq>
             <priority>0.6</priority>
         </url>
@@ -64,7 +64,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
     foreach ($pages as $pg):
         ?>
         <url>
-            <loc><?= SITE_URL ?>/<?= e($pg['slug']) ?>.html</loc>
+            <loc><?= SITE_URL ?>/<?= e($pg['slug']) ?></loc>
             <lastmod><?= date('Y-m-d', strtotime($pg['date_modification'])) ?></lastmod>
             <changefreq>monthly</changefreq>
             <priority>0.5</priority>

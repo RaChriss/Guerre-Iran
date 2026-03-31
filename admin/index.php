@@ -61,16 +61,16 @@ include __DIR__ . '/includes/header.php';
     </div>
 </div>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+<div class="grid-2-cols">
     <!-- Derniers Articles -->
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">Derniers articles</h2>
-            <a href="<?= ADMIN_URL ?>/article-edit.php" class="btn btn-sm btn-primary">+ Nouveau</a>
+            <a href="<?= ADMIN_URL ?>/article/nouveau" class="btn btn-sm btn-primary">+ Nouveau</a>
         </div>
-        <div class="card-body" style="padding: 0;">
+        <div class="card-body card-body-flush">
             <?php if (empty($derniersArticles)): ?>
-                <p style="padding: 20px; text-align: center; color: var(--text-light);">
+                <p class="empty-message">
                     Aucun article pour le moment.
                 </p>
             <?php else: ?>
@@ -79,7 +79,7 @@ include __DIR__ . '/includes/header.php';
                         <?php foreach ($derniersArticles as $article): ?>
                             <tr>
                                 <td>
-                                    <a href="<?= ADMIN_URL ?>/article-edit.php?id=<?= $article['id'] ?>">
+                                    <a href="<?= ADMIN_URL ?>/article/<?= $article['id'] ?>">
                                         <strong><?= e($article['titre']) ?></strong>
                                     </a>
                                     <br>
@@ -88,7 +88,7 @@ include __DIR__ . '/includes/header.php';
                                         <?= formatDateRelative($article['date_creation']) ?>
                                     </small>
                                 </td>
-                                <td style="width: 100px; text-align: right;">
+                                <td class="col-status">
                                     <?php if ($article['statut'] === 'publie'): ?>
                                         <span class="badge badge-success">Publié</span>
                                     <?php elseif ($article['statut'] === 'brouillon'): ?>
@@ -104,7 +104,7 @@ include __DIR__ . '/includes/header.php';
             <?php endif; ?>
         </div>
         <div class="card-footer">
-            <a href="<?= ADMIN_URL ?>/articles.php">Voir tous les articles →</a>
+            <a href="<?= ADMIN_URL ?>/articles">Voir tous les articles →</a>
         </div>
     </div>
 
@@ -112,11 +112,11 @@ include __DIR__ . '/includes/header.php';
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">Chronologie récente</h2>
-            <a href="<?= ADMIN_URL ?>/evenement-edit.php" class="btn btn-sm btn-primary">+ Nouveau</a>
+            <a href="<?= ADMIN_URL ?>/evenement/nouveau" class="btn btn-sm btn-primary">+ Nouveau</a>
         </div>
-        <div class="card-body" style="padding: 0;">
+        <div class="card-body card-body-flush">
             <?php if (empty($derniersEvenements)): ?>
-                <p style="padding: 20px; text-align: center; color: var(--text-light);">
+                <p class="empty-message">
                     Aucun événement pour le moment.
                 </p>
             <?php else: ?>
@@ -125,7 +125,7 @@ include __DIR__ . '/includes/header.php';
                         <?php foreach ($derniersEvenements as $evenement): ?>
                             <tr>
                                 <td>
-                                    <a href="<?= ADMIN_URL ?>/evenement-edit.php?id=<?= $evenement['id'] ?>">
+                                    <a href="<?= ADMIN_URL ?>/evenement/<?= $evenement['id'] ?>">
                                         <strong><?= e($evenement['titre']) ?></strong>
                                     </a>
                                     <br>
@@ -133,7 +133,7 @@ include __DIR__ . '/includes/header.php';
                                         <?= formatDate($evenement['date_evenement'], 'd/m/Y') ?>
                                     </small>
                                 </td>
-                                <td style="width: 80px; text-align: right;">
+                                <td class="col-status-sm">
                                     <?php if ($evenement['actif']): ?>
                                         <span class="badge badge-success">Actif</span>
                                     <?php else: ?>
@@ -147,7 +147,7 @@ include __DIR__ . '/includes/header.php';
             <?php endif; ?>
         </div>
         <div class="card-footer">
-            <a href="<?= ADMIN_URL ?>/evenements.php">Voir tous les événements →</a>
+            <a href="<?= ADMIN_URL ?>/evenements">Voir tous les événements →</a>
         </div>
     </div>
 </div>
@@ -158,17 +158,17 @@ include __DIR__ . '/includes/header.php';
         <h2 class="card-title">Actions rapides</h2>
     </div>
     <div class="card-body">
-        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-            <a href="<?= ADMIN_URL ?>/article-edit.php" class="btn btn-primary">
+        <div class="flex-wrap-gap">
+            <a href="<?= ADMIN_URL ?>/article/nouveau" class="btn btn-primary">
                 📝 Nouvel article
             </a>
-            <a href="<?= ADMIN_URL ?>/evenement-edit.php" class="btn btn-secondary">
+            <a href="<?= ADMIN_URL ?>/evenement/nouveau" class="btn btn-secondary">
                 📅 Nouvel événement
             </a>
-            <a href="<?= ADMIN_URL ?>/medias.php" class="btn btn-outline">
+            <a href="<?= ADMIN_URL ?>/medias" class="btn btn-outline">
                 🖼️ Gérer les médias
             </a>
-            <a href="<?= ADMIN_URL ?>/configuration.php" class="btn btn-outline">
+            <a href="<?= ADMIN_URL ?>/configuration" class="btn btn-outline">
                 ⚙️ Configuration
             </a>
         </div>

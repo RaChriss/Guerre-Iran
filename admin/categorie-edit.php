@@ -15,7 +15,7 @@ if ($isEdit) {
     $categorie = dbFetchOne("SELECT * FROM categories WHERE id = ?", [$id]);
     if (!$categorie) {
         setFlash('error', 'Catégorie introuvable.');
-        redirect(ADMIN_URL . '/categories.php');
+        redirect(ADMIN_URL . '/categories');
     }
 }
 
@@ -84,7 +84,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
             setFlash('success', 'Catégorie créée avec succès.');
         }
-        redirect(ADMIN_URL . '/categories.php');
+
+        // Invalider le cache après modification
+        cacheFlush();
+
+        redirect(ADMIN_URL . '/categories');
     }
 }
 
@@ -115,8 +119,8 @@ include __DIR__ . '/includes/header.php';
 
             <div class="form-group">
                 <label for="ordre">Ordre d'affichage</label>
-                <input type="number" id="ordre" name="ordre" value="<?= $data['ordre'] ?>" class="form-control"
-                    style="max-width: 100px;">
+                <input type="number" id="ordre" name="ordre" value="<?= $data['ordre'] ?>"
+                    class="form-control form-control-sm-width">
             </div>
 
             <div class="form-group">
@@ -142,7 +146,7 @@ include __DIR__ . '/includes/header.php';
             </div>
 
             <div class="d-flex justify-between mt-3">
-                <a href="<?= ADMIN_URL ?>/categories.php" class="btn btn-outline">← Retour</a>
+                <a href="<?= ADMIN_URL ?>/categories" class="btn btn-outline">← Retour</a>
                 <button type="submit" class="btn btn-primary"><?= $isEdit ? 'Enregistrer' : 'Créer' ?></button>
             </div>
         </form>

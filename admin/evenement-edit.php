@@ -14,7 +14,7 @@ if ($isEdit) {
     $evenement = dbFetchOne("SELECT * FROM evenements WHERE id = ?", [$id]);
     if (!$evenement) {
         setFlash('error', 'Événement introuvable.');
-        redirect(ADMIN_URL . '/evenements.php');
+        redirect(ADMIN_URL . '/evenements');
     }
 }
 
@@ -69,7 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
             setFlash('success', 'Événement créé.');
         }
-        redirect(ADMIN_URL . '/evenements.php');
+
+        // Invalider le cache après modification
+        cacheFlush();
+
+        redirect(ADMIN_URL . '/evenements');
     }
 }
 
@@ -90,7 +94,7 @@ include __DIR__ . '/includes/header.php';
             <div class="form-group">
                 <label for="date_evenement" class="required">Date</label>
                 <input type="date" id="date_evenement" name="date_evenement" value="<?= e($data['date_evenement']) ?>"
-                    class="form-control" required style="max-width: 200px;">
+                    class="form-control form-control-xl-width" required>
                 <?php if (isset($errors['date_evenement'])): ?>
                     <div class="form-error"><?= e($errors['date_evenement']) ?></div><?php endif; ?>
             </div>
@@ -134,7 +138,7 @@ include __DIR__ . '/includes/header.php';
             </div>
 
             <div class="d-flex justify-between mt-3">
-                <a href="<?= ADMIN_URL ?>/evenements.php" class="btn btn-outline">← Retour</a>
+                <a href="<?= ADMIN_URL ?>/evenements" class="btn btn-outline">← Retour</a>
                 <button type="submit" class="btn btn-primary"><?= $isEdit ? 'Enregistrer' : 'Créer' ?></button>
             </div>
         </form>

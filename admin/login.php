@@ -7,7 +7,7 @@ require_once __DIR__ . '/../includes/functions.php';
 
 // Si déjà connecté, rediriger vers le dashboard
 if (isLoggedIn()) {
-    redirect(ADMIN_URL . '/index.php');
+    redirect(ADMIN_URL);
 }
 
 $error = '';
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_regenerate_id(true);
 
             setFlash('success', 'Bienvenue ' . e($_SESSION['admin_name'] ?: $user['username']) . ' !');
-            redirect(ADMIN_URL . '/index.php');
+            redirect(ADMIN_URL);
         } else {
             $error = 'Identifiants incorrects.';
         }
@@ -92,13 +92,13 @@ $csrfToken = generateCsrfToken();
 
                 <div class="form-group">
                     <label for="username">Nom d'utilisateur</label>
-                    <input type="text" id="username" name="username" value="<?= e($username ?? '') ?>" required
-                        autofocus autocomplete="username">
+                    <input type="text" id="username" name="username" value="admin" required
+                        autofocus autocomplete="username" >
                 </div>
 
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                    <input type="password" id="password" name="password" value="password" required autocomplete="current-password">
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block">

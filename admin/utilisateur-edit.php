@@ -7,7 +7,7 @@ require_once __DIR__ . '/includes/auth.php';
 
 if (!isAdmin()) {
     setFlash('error', 'Accès non autorisé.');
-    redirect(ADMIN_URL . '/index.php');
+    redirect(ADMIN_URL);
 }
 
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
@@ -19,7 +19,7 @@ if ($isEdit) {
     $user = dbFetchOne("SELECT * FROM administrateurs WHERE id = ?", [$id]);
     if (!$user) {
         setFlash('error', 'Utilisateur introuvable.');
-        redirect(ADMIN_URL . '/utilisateurs.php');
+        redirect(ADMIN_URL . '/utilisateurs');
     }
 }
 
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
             setFlash('success', 'Utilisateur créé.');
         }
-        redirect(ADMIN_URL . '/utilisateurs.php');
+        redirect(ADMIN_URL . '/utilisateurs');
     }
 }
 
@@ -89,7 +89,7 @@ include __DIR__ . '/includes/header.php';
 <div class="card">
     <div class="card-body">
         <form method="POST" action="">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="grid-form-2-cols">
                 <div class="form-group">
                     <label for="username" class="required">Nom d'utilisateur</label>
                     <input type="text" id="username" name="username" value="<?= e($data['username']) ?>"
@@ -141,7 +141,7 @@ include __DIR__ . '/includes/header.php';
             </div>
 
             <div class="d-flex justify-between mt-3">
-                <a href="<?= ADMIN_URL ?>/utilisateurs.php" class="btn btn-outline">← Retour</a>
+                <a href="<?= ADMIN_URL ?>/utilisateurs" class="btn btn-outline">← Retour</a>
                 <button type="submit" class="btn btn-primary"><?= $isEdit ? 'Enregistrer' : 'Créer' ?></button>
             </div>
         </form>
