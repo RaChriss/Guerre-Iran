@@ -45,7 +45,7 @@ include __DIR__ . '/includes/header.php';
                     <th>Rôle</th>
                     <th>Statut</th>
                     <th>Dernière connexion</th>
-                    <th style="width: 100px;">Actions</th>
+                    <th class="col-actions-sm">Actions</th>
                 </tr>
             </thead>
             <tbody>

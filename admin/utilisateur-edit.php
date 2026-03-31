@@ -89,7 +89,7 @@ include __DIR__ . '/includes/header.php';
 <div class="card">
     <div class="card-body">
         <form method="POST" action="">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="grid-form-2-cols">
                 <div class="form-group">
                     <label for="username" class="required">Nom d'utilisateur</label>
                     <input type="text" id="username" name="username" value="<?= e($data['username']) ?>"

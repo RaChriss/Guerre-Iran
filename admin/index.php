@@ -61,16 +61,16 @@ include __DIR__ . '/includes/header.php';
     </div>
 </div>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+<div class="grid-2-cols">
     <!-- Derniers Articles -->
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">Derniers articles</h2>
             <a href="<?= ADMIN_URL ?>/article-edit.php" class="btn btn-sm btn-primary">+ Nouveau</a>
         </div>
-        <div class="card-body" style="padding: 0;">
+        <div class="card-body card-body-flush">
             <?php if (empty($derniersArticles)): ?>
-                <p style="padding: 20px; text-align: center; color: var(--text-light);">
+                <p class="empty-message">
                     Aucun article pour le moment.
                 </p>
             <?php else: ?>
@@ -88,7 +88,7 @@ include __DIR__ . '/includes/header.php';
                                         <?= formatDateRelative($article['date_creation']) ?>
                                     </small>
                                 </td>
-                                <td style="width: 100px; text-align: right;">
+                                <td class="col-status">
                                     <?php if ($article['statut'] === 'publie'): ?>
                                         <span class="badge badge-success">Publié</span>
                                     <?php elseif ($article['statut'] === 'brouillon'): ?>
@@ -114,9 +114,9 @@ include __DIR__ . '/includes/header.php';
             <h2 class="card-title">Chronologie récente</h2>
             <a href="<?= ADMIN_URL ?>/evenement-edit.php" class="btn btn-sm btn-primary">+ Nouveau</a>
         </div>
-        <div class="card-body" style="padding: 0;">
+        <div class="card-body card-body-flush">
             <?php if (empty($derniersEvenements)): ?>
-                <p style="padding: 20px; text-align: center; color: var(--text-light);">
+                <p class="empty-message">
                     Aucun événement pour le moment.
                 </p>
             <?php else: ?>
@@ -133,7 +133,7 @@ include __DIR__ . '/includes/header.php';
                                         <?= formatDate($evenement['date_evenement'], 'd/m/Y') ?>
                                     </small>
                                 </td>
-                                <td style="width: 80px; text-align: right;">
+                                <td class="col-status-sm">
                                     <?php if ($evenement['actif']): ?>
                                         <span class="badge badge-success">Actif</span>
                                     <?php else: ?>
@@ -158,7 +158,7 @@ include __DIR__ . '/includes/header.php';
         <h2 class="card-title">Actions rapides</h2>
     </div>
     <div class="card-body">
-        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <div class="flex-wrap-gap">
             <a href="<?= ADMIN_URL ?>/article-edit.php" class="btn btn-primary">
                 📝 Nouvel article
             </a>

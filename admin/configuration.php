@@ -27,6 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
     }
 
+    // Invalider le cache de configuration
+    cacheInvalidateConfig();
+
     setFlash('success', 'Configuration enregistrée.');
     redirect(ADMIN_URL . '/configuration.php');
 }
@@ -68,7 +71,7 @@ include __DIR__ . '/includes/header.php';
             <div class="form-group">
                 <label for="articles_par_page">Articles par page</label>
                 <input type="number" id="articles_par_page" name="articles_par_page"
-                    value="<?= e($config['articles_par_page'] ?? 10) ?>" class="form-control" style="max-width: 100px;"
+                    value="<?= e($config['articles_par_page'] ?? 10) ?>" class="form-control form-control-sm-width"
                     min="1" max="50">
             </div>
         </div>

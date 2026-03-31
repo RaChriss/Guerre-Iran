@@ -69,6 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
             setFlash('success', 'Événement créé.');
         }
+
+        // Invalider le cache après modification
+        cacheFlush();
+
         redirect(ADMIN_URL . '/evenements.php');
     }
 }
@@ -90,7 +94,7 @@ include __DIR__ . '/includes/header.php';
             <div class="form-group">
                 <label for="date_evenement" class="required">Date</label>
                 <input type="date" id="date_evenement" name="date_evenement" value="<?= e($data['date_evenement']) ?>"
-                    class="form-control" required style="max-width: 200px;">
+                    class="form-control form-control-xl-width" required>
                 <?php if (isset($errors['date_evenement'])): ?>
                     <div class="form-error"><?= e($errors['date_evenement']) ?></div><?php endif; ?>
             </div>

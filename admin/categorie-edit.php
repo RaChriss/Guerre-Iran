@@ -84,6 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
             setFlash('success', 'Catégorie créée avec succès.');
         }
+
+        // Invalider le cache après modification
+        cacheFlush();
+
         redirect(ADMIN_URL . '/categories.php');
     }
 }
@@ -115,8 +119,8 @@ include __DIR__ . '/includes/header.php';
 
             <div class="form-group">
                 <label for="ordre">Ordre d'affichage</label>
-                <input type="number" id="ordre" name="ordre" value="<?= $data['ordre'] ?>" class="form-control"
-                    style="max-width: 100px;">
+                <input type="number" id="ordre" name="ordre" value="<?= $data['ordre'] ?>"
+                    class="form-control form-control-sm-width">
             </div>
 
             <div class="form-group">

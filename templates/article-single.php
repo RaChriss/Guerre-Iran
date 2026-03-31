@@ -3,15 +3,17 @@
  * Template Article détail
  */
 
-// Récupération de l'article
-$article = dbFetchOne(
+// Récupération de l'article (avec cache court)
+$article = dbFetchOneCached(
     "SELECT a.*, c.nom as categorie_nom, c.slug as categorie_slug, c.id as categorie_id,
             u.username as auteur_username, u.prenom as auteur_prenom, u.nom as auteur_nom
      FROM articles a
      LEFT JOIN categories c ON a.categorie_id = c.id
      LEFT JOIN administrateurs u ON a.auteur_id = u.id
      WHERE a.id = ? AND a.statut = 'publie'",
-    [$id]
+    [$id],
+    CACHE_TTL_SHORT,
+    "article:single:{$id}"
 );
 
 if (!$article) {
@@ -23,17 +25,19 @@ if (!$article) {
 // Incrémenter les vues
 incrementArticleViews($article['id']);
 
-// Articles similaires (même catégorie)
+// Articles similaires (même catégorie) - avec cache
 $articlesSimilaires = [];
 if ($article['categorie_id']) {
-    $articlesSimilaires = dbFetchAll(
+    $articlesSimilaires = dbFetchAllCached(
         "SELECT a.*, c.nom as categorie_nom
          FROM articles a
          LEFT JOIN categories c ON a.categorie_id = c.id
          WHERE a.statut = 'publie' AND a.categorie_id = ? AND a.id != ?
          ORDER BY a.date_publication DESC
          LIMIT 3",
-        [$article['categorie_id'], $article['id']]
+        [$article['categorie_id'], $article['id']],
+        CACHE_TTL_SHORT,
+        "article:similar:{$article['id']}"
     );
 }
 

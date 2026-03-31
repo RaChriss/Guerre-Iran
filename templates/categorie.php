@@ -3,10 +3,12 @@
  * Template Catégorie
  */
 
-// Récupération de la catégorie
-$categorie = dbFetchOne(
+// Récupération de la catégorie (avec cache long)
+$categorie = dbFetchOneCached(
     "SELECT * FROM categories WHERE id = ? AND actif = TRUE",
-    [$id]
+    [$id],
+    CACHE_TTL_LONG,
+    "categorie:detail:{$id}"
 );
 
 if (!$categorie) {
@@ -18,21 +20,25 @@ if (!$categorie) {
 $perPage = (int) getConfig('articles_par_page', 10);
 $offset = ($currentPage - 1) * $perPage;
 
-// Total articles
-$total = dbFetchOne(
+// Total articles (avec cache)
+$total = dbFetchOneCached(
     "SELECT COUNT(*) as count FROM articles WHERE categorie_id = ? AND statut = 'publie'",
-    [$id]
+    [$id],
+    CACHE_TTL_SHORT,
+    "categorie:count:{$id}"
 )['count'];
 
-// Articles de la catégorie
-$articles = dbFetchAll(
+// Articles de la catégorie (avec cache)
+$articles = dbFetchAllCached(
     "SELECT a.*, c.nom as categorie_nom
      FROM articles a
      LEFT JOIN categories c ON a.categorie_id = c.id
      WHERE a.categorie_id = ? AND a.statut = 'publie'
      ORDER BY a.date_publication DESC
      LIMIT {$perPage} OFFSET {$offset}",
-    [$id]
+    [$id],
+    CACHE_TTL_SHORT,
+    "categorie:articles:{$id}:page{$currentPage}"
 );
 
 // Pagination

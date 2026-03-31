@@ -54,6 +54,13 @@ date_default_timezone_set('Europe/Paris');
 // Encodage
 mb_internal_encoding('UTF-8');
 
+// Configuration du cache
+define('CACHE_ENABLED', true);
+define('CACHE_PATH', BASE_PATH . '/cache');
+define('CACHE_TTL', 3600); // 1 heure par défaut
+define('CACHE_TTL_SHORT', 300); // 5 minutes pour données fréquemment modifiées
+define('CACHE_TTL_LONG', 86400); // 24 heures pour données stables
+
 // Démarrage de la session sécurisé
 if (session_status() === PHP_SESSION_NONE) {
     session_start([

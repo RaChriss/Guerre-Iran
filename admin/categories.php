@@ -46,18 +46,18 @@ include __DIR__ . '/includes/header.php';
         <table class="table">
             <thead>
                 <tr>
-                    <th style="width: 50px;">Ordre</th>
+                    <th class="col-order">Ordre</th>
                     <th>Nom</th>
                     <th>Slug</th>
                     <th>Articles</th>
                     <th>Statut</th>
-                    <th style="width: 120px;">Actions</th>
+                    <th class="col-actions">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($categories)): ?>
                     <tr>
-                        <td colspan="6" style="text-align: center; padding: 40px;">
+                        <td colspan="6" class="empty-message-lg">
                             <p class="text-muted">Aucune catégorie.</p>
                             <a href="<?= ADMIN_URL ?>/categorie-edit.php" class="btn btn-primary mt-2">
                                 Créer une catégorie

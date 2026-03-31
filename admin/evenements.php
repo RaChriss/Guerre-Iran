@@ -41,13 +41,13 @@ include __DIR__ . '/includes/header.php';
                     <th>Titre</th>
                     <th>Source</th>
                     <th>Statut</th>
-                    <th style="width: 100px;">Actions</th>
+                    <th class="col-actions-sm">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($evenements)): ?>
                     <tr>
-                        <td colspan="5" style="text-align: center; padding: 40px;">
+                        <td colspan="5" class="empty-message-lg">
                             <p class="text-muted">Aucun événement.</p>
                             <a href="<?= ADMIN_URL ?>/evenement-edit.php" class="btn btn-primary mt-2">Ajouter un
                                 événement</a>

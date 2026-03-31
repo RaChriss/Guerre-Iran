@@ -161,6 +161,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             setFlash('success', 'Article créé avec succès.');
         }
 
+        // Invalider le cache après modification
+        cacheFlush();
+
         redirect(ADMIN_URL . '/article-edit.php?id=' . $id);
     }
 }
@@ -173,7 +176,7 @@ include __DIR__ . '/includes/header.php';
 <form method="POST" action="" enctype="multipart/form-data">
     <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
 
-    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+    <div class="grid-2-1-cols">
         <!-- Colonne principale -->
         <div>
             <div class="card mb-3">

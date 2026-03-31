@@ -33,13 +33,13 @@ include __DIR__ . '/includes/header.php';
                     <th>URL</th>
                     <th>Statut</th>
                     <th>Modifiée le</th>
-                    <th style="width: 100px;">Actions</th>
+                    <th class="col-actions-sm">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($pages)): ?>
                     <tr>
-                        <td colspan="5" style="text-align: center; padding: 40px;">
+                        <td colspan="5" class="empty-message-lg">
                             <p class="text-muted">Aucune page.</p>
                         </td>
                     </tr>

@@ -99,19 +99,18 @@ include __DIR__ . '/includes/header.php';
     </div>
 
     <!-- Filtres -->
-    <div class="card-body" style="background: var(--bg-color); border-bottom: 1px solid var(--border-color);">
-        <form method="GET" action="" class="d-flex gap-2" style="flex-wrap: wrap;">
-            <input type="text" name="q" placeholder="Rechercher..." value="<?= e($search) ?>" class="form-control"
-                style="max-width: 200px;">
+    <div class="card-body card-filters">
+        <form method="GET" action="" class="d-flex gap-2 flex-wrap-gap">
+            <input type="text" name="q" placeholder="Rechercher..." value="<?= e($search) ?>" class="form-control form-control-xl-width">
 
-            <select name="statut" class="form-control" style="max-width: 150px;">
+            <select name="statut" class="form-control form-control-md-width">
                 <option value="">Tous les statuts</option>
                 <option value="publie" <?= $statut === 'publie' ? 'selected' : '' ?>>Publié</option>
                 <option value="brouillon" <?= $statut === 'brouillon' ? 'selected' : '' ?>>Brouillon</option>
                 <option value="archive" <?= $statut === 'archive' ? 'selected' : '' ?>>Archivé</option>
             </select>
 
-            <select name="categorie" class="form-control" style="max-width: 180px;">
+            <select name="categorie" class="form-control form-control-lg-width">
                 <option value="">Toutes les catégories</option>
                 <?php foreach ($categories as $cat): ?>
                     <option value="<?= $cat['id'] ?>" <?= $categorie == $cat['id'] ? 'selected' : '' ?>>
@@ -132,19 +131,19 @@ include __DIR__ . '/includes/header.php';
         <table class="table">
             <thead>
                 <tr>
-                    <th style="width: 50px;">ID</th>
+                    <th class="col-id">ID</th>
                     <th>Titre</th>
                     <th>Catégorie</th>
                     <th>Statut</th>
                     <th>Vues</th>
                     <th>Date</th>
-                    <th style="width: 120px;">Actions</th>
+                    <th class="col-actions">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($articles)): ?>
                     <tr>
-                        <td colspan="7" style="text-align: center; padding: 40px;">
+                        <td colspan="7" class="empty-message-lg">
                             <p class="text-muted">Aucun article trouvé.</p>
                             <a href="<?= ADMIN_URL ?>/article-edit.php" class="btn btn-primary mt-2">
                                 Créer un article
