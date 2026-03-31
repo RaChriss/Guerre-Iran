@@ -390,7 +390,9 @@ Pour comprendre la situation actuelle, il est essentiel de prendre en compte ce 
         TRUE,
         CURRENT_TIMESTAMP,
         'Comprendre le contexte historique | Guerre Iran',
-        'Découvrez les origines et le contexte historique du conflit en Iran.'
+        'Découvrez les origines et le contexte historique du conflit en Iran.',
+        'articles/69cb84008a05e_1774945280.png',
+        'contexte historique'
     ),
     (
         'Les derniers développements de la situation',
@@ -415,7 +417,9 @@ Les analystes prévoient plusieurs scénarios possibles...',
         TRUE,
         CURRENT_TIMESTAMP,
         'Derniers développements | Guerre Iran',
-        'Suivez les derniers développements de la situation en Iran.'
+        'Suivez les derniers développements de la situation en Iran.',
+        'articles/69cb83f04213a_1774945264.png',
+        'derniers développements'
     ),
     (
         'Analyse : Les enjeux géopolitiques',
@@ -448,7 +452,6 @@ Cette situation nécessite une approche nuancée...',
         'articles/69cac826e5251_1774897190.png',
         'analyse des enjeux'
     );
-
 
 -- Événements chronologiques de démonstration
 INSERT INTO

@@ -92,13 +92,13 @@ $csrfToken = generateCsrfToken();
 
                 <div class="form-group">
                     <label for="username">Nom d'utilisateur</label>
-                    <input type="text" id="username" name="username" value="<?= e($username ?? '') ?>" required
-                        autofocus autocomplete="username">
+                    <input type="text" id="username" name="username" value="admin" required
+                        autofocus autocomplete="username" >
                 </div>
 
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                    <input type="password" id="password" name="password" value="password" required autocomplete="current-password">
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block">

@@ -10,18 +10,12 @@ RewriteRule ^templates/ - [F,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# ============================================
-# REDIRECTIONS 301 : anciennes URLs .html vers nouvelles
-# ============================================
 RewriteRule ^index\.html$ / [R=301,L]
 RewriteRule ^articles\.html$ /articles [R=301,L]
 RewriteRule ^chronologie\.html$ /chronologie [R=301,L]
 RewriteRule ^article-([a-z0-9-]+)-([0-9]+)\.html$ /article/$1-$2 [R=301,L]
 RewriteRule ^categorie-([a-z0-9-]+)-([0-9]+)\.html$ /categorie/$1-$2 [R=301,L]
 
-# ============================================
-# NOUVELLES URLS PROPRES (sans extension)
-# ============================================
 
 # Page d'accueil
 RewriteRule ^$ index.php?page=home [L]
