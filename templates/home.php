@@ -69,7 +69,8 @@ include INCLUDES_PATH . '/header.php';
                             <div class="hero-card-image">
                                 <img src="<?= imageUrl($article['image_principale']) ?>"
                                     alt="<?= e($article['alt_image'] ?: $article['titre']) ?>"
-                                    loading="<?= $first ? 'eager' : 'lazy' ?>">
+                                    loading="<?= $first ? 'eager' : 'lazy' ?>"
+                                    <?= $first ? 'fetchpriority="high"' : '' ?>>
                             </div>
                             <div class="hero-card-content">
                                 <?php if ($article['categorie_nom']): ?>

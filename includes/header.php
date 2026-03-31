@@ -40,11 +40,12 @@ $menuCategories = dbFetchAllCached(
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&display=swap">
     <link
         href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/style.css">
     <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/icons.css">
+    <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/style.css">
 </head>
 
 <body class="<?= e($pageClass ?? '') ?>">
