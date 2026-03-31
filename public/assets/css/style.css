@@ -1311,6 +1311,58 @@ h4,
     gap: 10px;
 }
 
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown-toggle {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-dropdown-toggle::after {
+    content: "▾";
+    font-size: 0.8em;
+    opacity: 0.8;
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 220px;
+    max-width: 320px;
+    background: #ffffff;
+    border: 1px solid #e6e8ef;
+    border-radius: 12px;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.14);
+    padding: 8px;
+    list-style: none;
+    display: none;
+    z-index: 1200;
+}
+
+.nav-dropdown.open .nav-dropdown-menu {
+    display: block;
+}
+
+.nav-dropdown-item {
+    display: block;
+    padding: 10px 10px;
+    border-radius: 10px;
+    color: #243043;
+    font-weight: 600;
+    font-size: 0.92rem;
+}
+
+.nav-dropdown-item:hover {
+    background: #f5f7fb;
+    color: #8b0000;
+}
+
 .nav-link {
     border: 1px solid transparent;
     border-radius: 999px;
@@ -2248,7 +2300,7 @@ body.no-scroll {
 }
 
 .site-header .container {
-    max-width: 1420px;
+    max-width: 1600px;
 }
 
 .header-inner {
@@ -2258,28 +2310,52 @@ body.no-scroll {
     border-radius: 14px;
     padding: 0 22px;
     box-shadow: 0 8px 26px rgba(15, 23, 42, 0.08);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 16px;
 }
 
 .site-logo {
     color: #0f172a;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    letter-spacing: 0.01em;
 }
 
 .logo-mark {
     background: #0f172a;
     color: #ffffff;
     border-radius: 9px;
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+}
+
+.main-nav {
+    justify-self: center;
 }
 
 .main-nav .nav-list {
-    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
 }
 
 .nav-link {
     color: #3b4352;
     border: 0;
     border-radius: 0;
-    padding: 8px 2px;
+    padding: 10px 4px;
     background: transparent;
+    font-weight: 700;
+    font-size: 0.95rem;
 }
 
 .nav-link::after {
@@ -2298,6 +2374,12 @@ body.no-scroll {
     border: 0;
 }
 
+.nav-link:focus-visible {
+    outline: 3px solid rgba(139, 0, 0, 0.22);
+    outline-offset: 3px;
+    border-radius: 10px;
+}
+
 .nav-link:hover::after,
 .nav-link.active::after {
     width: 100%;
@@ -2309,9 +2391,48 @@ body.no-scroll {
     border: 0;
 }
 
+.nav-dropdown-toggle {
+    padding-right: 2px;
+}
+
+.nav-dropdown-toggle::after {
+    margin-left: 4px;
+    font-size: 0.9em;
+}
+
+.nav-dropdown-menu {
+    top: calc(100% + 12px);
+    min-width: 240px;
+    max-width: 360px;
+    padding: 10px;
+}
+
+.nav-dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 14px;
+    height: 14px;
+    background: #ffffff;
+    border-left: 1px solid #e6e8ef;
+    border-top: 1px solid #e6e8ef;
+}
+
+.nav-dropdown-item {
+    padding: 10px 12px;
+    border-radius: 10px;
+}
+
+.nav-dropdown-item:hover {
+    background: #f7f8fb;
+}
+
 .menu-toggle {
     border-radius: 10px;
     border-color: #e2e8f0;
+    background: #ffffff;
 }
 
 .menu-toggle span {
@@ -2359,5 +2480,112 @@ body.no-scroll {
     .nav-link.active {
         background: #f5f7fb;
         color: #8b0000;
+    }
+
+    .nav-dropdown-menu {
+        position: static;
+        transform: none;
+        min-width: 0;
+        max-width: none;
+        box-shadow: none;
+        border: 1px solid #eef2f8;
+        margin-top: 6px;
+        padding: 6px;
+    }
+}
+
+/* ========================================
+   Navbar FrontOffice - polish visuel
+   ======================================== */
+.header-inner {
+    border-color: #e9ecf3;
+}
+
+.header-inner::after {
+    content: "";
+    grid-column: 1 / -1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(15, 23, 42, 0), rgba(15, 23, 42, 0.06), rgba(15, 23, 42, 0));
+    display: none;
+}
+
+.site-logo {
+    font-size: 1.1rem;
+}
+
+.main-nav .nav-list {
+    background: #f8fafc;
+    border: 1px solid #eef2f7;
+    border-radius: 999px;
+    padding: 6px;
+    gap: 4px;
+}
+
+.nav-link {
+    border-radius: 999px;
+    padding: 9px 12px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: #2e3747;
+}
+
+.nav-link::after {
+    display: none;
+}
+
+.nav-link:hover {
+    background: #ffffff;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    color: #0f172a;
+}
+
+.nav-link.active,
+.nav-dropdown.open > .nav-dropdown-toggle {
+    background: #ffffff;
+    color: #8b0000;
+    box-shadow: 0 6px 18px rgba(139, 0, 0, 0.08);
+}
+
+.nav-dropdown-toggle::after {
+    opacity: 0.7;
+}
+
+.nav-dropdown-menu {
+    border-color: #eef2f7;
+    padding: 10px;
+}
+
+.nav-dropdown-item {
+    font-weight: 700;
+    padding: 10px 12px;
+}
+
+.nav-dropdown-item:hover {
+    background: #f3f6fb;
+}
+
+@media (max-width: 900px) {
+    .main-nav .nav-list {
+        gap: 2px;
+        padding: 5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-nav .nav-list {
+        background: transparent;
+        border: 0;
+        padding: 0;
+    }
+
+    .nav-link {
+        box-shadow: none;
+    }
+
+    .nav-link:hover,
+    .nav-link.active,
+    .nav-dropdown.open > .nav-dropdown-toggle {
+        box-shadow: none;
+        background: #f5f7fb;
     }
 }

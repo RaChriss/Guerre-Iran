@@ -359,7 +359,9 @@ INSERT INTO
         mise_en_avant,
         date_publication,
         meta_titre,
-        meta_description
+        meta_description,
+        image_principale,
+        alt_image
     )
 VALUES (
         'Comprendre le contexte historique du conflit',
@@ -442,8 +444,11 @@ Cette situation nécessite une approche nuancée...',
         FALSE,
         CURRENT_TIMESTAMP,
         'Analyse géopolitique | Guerre Iran',
-        'Analyse approfondie des enjeux géopolitiques liés à la situation en Iran.'
+        'Analyse approfondie des enjeux géopolitiques liés à la situation en Iran.',
+        'articles/69cac826e5251_1774897190.png',
+        'analyse des enjeux'
     );
+
 
 -- Événements chronologiques de démonstration
 INSERT INTO

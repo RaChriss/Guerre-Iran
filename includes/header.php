@@ -64,13 +64,20 @@ $menuCategories = dbFetchAll(
                     <ul class="nav-list">
                         <li class="nav-item"><a href="<?= SITE_URL ?>/" class="nav-link">Accueil</a></li>
                         <li class="nav-item"><a href="<?= SITE_URL ?>/articles.html" class="nav-link">Articles</a></li>
-                        <?php foreach ($menuCategories as $cat): ?>
-                            <li class="nav-item">
-                                <a href="<?= categoryUrl($cat) ?>" class="nav-link">
-                                    <?= e($cat['nom']) ?>
-                                </a>
-                            </li>
-                        <?php endforeach; ?>
+                        <li class="nav-item nav-dropdown">
+                            <button class="nav-link nav-dropdown-toggle" type="button" aria-expanded="false" aria-controls="nav-categories-menu">
+                                Catégories
+                            </button>
+                            <ul class="nav-dropdown-menu" id="nav-categories-menu" role="menu" aria-label="Catégories d'articles">
+                                <?php foreach ($menuCategories as $cat): ?>
+                                    <li role="none">
+                                        <a role="menuitem" href="<?= categoryUrl($cat) ?>" class="nav-dropdown-item">
+                                            <?= e($cat['nom']) ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
                         <li class="nav-item"><a href="<?= SITE_URL ?>/chronologie.html" class="nav-link">Chronologie</a></li>
                     </ul>
                 </nav>
