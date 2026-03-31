@@ -19,7 +19,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
         dbExecute("DELETE FROM categories WHERE id = ?", [$id]);
         setFlash('success', 'Catégorie supprimée avec succès.');
     }
-    redirect(ADMIN_URL . '/categories.php');
+    redirect(ADMIN_URL . '/categories');
 }
 
 // Récupération des catégories avec compte d'articles
@@ -37,7 +37,7 @@ include __DIR__ . '/includes/header.php';
 <div class="card">
     <div class="card-header">
         <h2 class="card-title">Liste des catégories</h2>
-        <a href="<?= ADMIN_URL ?>/categorie-edit.php" class="btn btn-primary">
+        <a href="<?= ADMIN_URL ?>/categorie/nouveau" class="btn btn-primary">
             + Nouvelle catégorie
         </a>
     </div>
@@ -59,7 +59,7 @@ include __DIR__ . '/includes/header.php';
                     <tr>
                         <td colspan="6" class="empty-message-lg">
                             <p class="text-muted">Aucune catégorie.</p>
-                            <a href="<?= ADMIN_URL ?>/categorie-edit.php" class="btn btn-primary mt-2">
+                            <a href="<?= ADMIN_URL ?>/categorie/nouveau" class="btn btn-primary mt-2">
                                 Créer une catégorie
                             </a>
                         </td>
@@ -69,7 +69,7 @@ include __DIR__ . '/includes/header.php';
                         <tr>
                             <td><?= $categorie['ordre'] ?></td>
                             <td>
-                                <a href="<?= ADMIN_URL ?>/categorie-edit.php?id=<?= $categorie['id'] ?>">
+                                <a href="<?= ADMIN_URL ?>/categorie/<?= $categorie['id'] ?>">
                                     <strong><?= e($categorie['nom']) ?></strong>
                                 </a>
                             </td>
@@ -84,9 +84,9 @@ include __DIR__ . '/includes/header.php';
                             </td>
                             <td>
                                 <div class="actions">
-                                    <a href="<?= ADMIN_URL ?>/categorie-edit.php?id=<?= $categorie['id'] ?>"
+                                    <a href="<?= ADMIN_URL ?>/categorie/<?= $categorie['id'] ?>"
                                         class="btn btn-sm btn-outline">✏️</a>
-                                    <a href="<?= ADMIN_URL ?>/categories.php?delete=<?= $categorie['id'] ?>"
+                                    <a href="<?= ADMIN_URL ?>/categories?delete=<?= $categorie['id'] ?>"
                                         class="btn btn-sm btn-danger"
                                         data-confirm="Supprimer cette catégorie ? Les articles associés ne seront pas supprimés.">🗑️</a>
                                 </div>

@@ -22,7 +22,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
         setFlash('success', 'Article supprimé avec succès.');
     }
 
-    redirect(ADMIN_URL . '/articles.php');
+    redirect(ADMIN_URL . '/articles');
 }
 
 // Pagination
@@ -79,7 +79,7 @@ $articles = dbFetchAll(
 $categories = dbFetchAll("SELECT id, nom FROM categories WHERE actif = TRUE ORDER BY nom");
 
 // Pagination
-$pagination = paginate($total, $perPage, $page, ADMIN_URL . '/articles.php?p={page}' .
+$pagination = paginate($total, $perPage, $page, ADMIN_URL . '/articles?p={page}' .
     ($statut ? "&statut={$statut}" : '') .
     ($categorie ? "&categorie={$categorie}" : '') .
     ($search ? "&q=" . urlencode($search) : ''));
@@ -93,7 +93,7 @@ include __DIR__ . '/includes/header.php';
             <h2 class="card-title mb-0">Liste des articles</h2>
             <span class="badge badge-info"><?= $total ?> article<?= $total > 1 ? 's' : '' ?></span>
         </div>
-        <a href="<?= ADMIN_URL ?>/article-edit.php" class="btn btn-primary">
+        <a href="<?= ADMIN_URL ?>/article/nouveau" class="btn btn-primary">
             + Nouvel article
         </a>
     </div>
@@ -101,7 +101,8 @@ include __DIR__ . '/includes/header.php';
     <!-- Filtres -->
     <div class="card-body card-filters">
         <form method="GET" action="" class="d-flex gap-2 flex-wrap-gap">
-            <input type="text" name="q" placeholder="Rechercher..." value="<?= e($search) ?>" class="form-control form-control-xl-width">
+            <input type="text" name="q" placeholder="Rechercher..." value="<?= e($search) ?>"
+                class="form-control form-control-xl-width">
 
             <select name="statut" class="form-control form-control-md-width">
                 <option value="">Tous les statuts</option>
@@ -122,7 +123,7 @@ include __DIR__ . '/includes/header.php';
             <button type="submit" class="btn btn-secondary">Filtrer</button>
 
             <?php if ($search || $statut || $categorie): ?>
-                <a href="<?= ADMIN_URL ?>/articles.php" class="btn btn-outline">Réinitialiser</a>
+                <a href="<?= ADMIN_URL ?>/articles" class="btn btn-outline">Réinitialiser</a>
             <?php endif; ?>
         </form>
     </div>
@@ -145,7 +146,7 @@ include __DIR__ . '/includes/header.php';
                     <tr>
                         <td colspan="7" class="empty-message-lg">
                             <p class="text-muted">Aucun article trouvé.</p>
-                            <a href="<?= ADMIN_URL ?>/article-edit.php" class="btn btn-primary mt-2">
+                            <a href="<?= ADMIN_URL ?>/article/nouveau" class="btn btn-primary mt-2">
                                 Créer un article
                             </a>
                         </td>
@@ -155,7 +156,7 @@ include __DIR__ . '/includes/header.php';
                         <tr>
                             <td><?= $article['id'] ?></td>
                             <td>
-                                <a href="<?= ADMIN_URL ?>/article-edit.php?id=<?= $article['id'] ?>">
+                                <a href="<?= ADMIN_URL ?>/article/<?= $article['id'] ?>">
                                     <strong><?= e($article['titre']) ?></strong>
                                 </a>
                                 <?php if ($article['mise_en_avant']): ?>
@@ -182,8 +183,8 @@ include __DIR__ . '/includes/header.php';
                             </td>
                             <td>
                                 <div class="actions">
-                                    <a href="<?= ADMIN_URL ?>/article-edit.php?id=<?= $article['id'] ?>"
-                                        class="btn btn-sm btn-outline" title="Modifier">
+                                    <a href="<?= ADMIN_URL ?>/article/<?= $article['id'] ?>" class="btn btn-sm btn-outline"
+                                        title="Modifier">
                                         ✏️
                                     </a>
                                     <?php if ($article['statut'] === 'publie'): ?>
@@ -192,7 +193,7 @@ include __DIR__ . '/includes/header.php';
                                             👁️
                                         </a>
                                     <?php endif; ?>
-                                    <a href="<?= ADMIN_URL ?>/articles.php?delete=<?= $article['id'] ?>"
+                                    <a href="<?= ADMIN_URL ?>/articles?delete=<?= $article['id'] ?>"
                                         class="btn btn-sm btn-danger"
                                         data-confirm="Êtes-vous sûr de vouloir supprimer cet article ?" title="Supprimer">
                                         🗑️

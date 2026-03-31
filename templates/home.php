@@ -95,7 +95,7 @@ include INCLUDES_PATH . '/header.php';
     <section class="section" aria-labelledby="latest-articles">
         <div class="section-header">
             <h2 id="latest-articles">Derniers articles</h2>
-            <a href="<?= SITE_URL ?>/articles.html" class="section-link">Voir tous les articles →</a>
+            <a href="<?= SITE_URL ?>/articles" class="section-link">Voir tous les articles →</a>
         </div>
 
         <div class="articles-grid">
@@ -147,7 +147,7 @@ include INCLUDES_PATH . '/header.php';
         <section class="section section-timeline" aria-labelledby="timeline-title">
             <div class="section-header">
                 <h2 id="timeline-title">Chronologie récente</h2>
-                <a href="<?= SITE_URL ?>/chronologie.html" class="section-link">Voir la chronologie complète →</a>
+                <a href="<?= SITE_URL ?>/chronologie" class="section-link">Voir la chronologie complète →</a>
             </div>
 
             <div class="timeline-preview">

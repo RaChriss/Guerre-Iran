@@ -16,7 +16,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
         dbExecute("DELETE FROM medias WHERE id = ?", [$id]);
         setFlash('success', 'Média supprimé.');
     }
-    redirect(ADMIN_URL . '/medias.php');
+    redirect(ADMIN_URL . '/medias');
 }
 
 // Upload
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['fichier']['name']))
     } else {
         setFlash('error', 'Erreur lors de l\'upload.');
     }
-    redirect(ADMIN_URL . '/medias.php');
+    redirect(ADMIN_URL . '/medias');
 }
 
 $medias = dbFetchAll("SELECT * FROM medias ORDER BY date_upload DESC");
@@ -95,7 +95,7 @@ include __DIR__ . '/includes/header.php';
                                 <button class="btn btn-sm btn-outline"
                                     onclick="copyToClipboard('<?= UPLOADS_URL . '/' . e($media['fichier']) ?>')"
                                     title="Copier l'URL">📋</button>
-                                <a href="<?= ADMIN_URL ?>/medias.php?delete=<?= $media['id'] ?>" class="btn btn-sm btn-danger"
+                                <a href="<?= ADMIN_URL ?>/medias?delete=<?= $media['id'] ?>" class="btn btn-sm btn-danger"
                                     data-confirm="Supprimer ce média ?">🗑️</a>
                             </div>
                         </div>

@@ -14,7 +14,7 @@ if ($isEdit) {
     $evenement = dbFetchOne("SELECT * FROM evenements WHERE id = ?", [$id]);
     if (!$evenement) {
         setFlash('error', 'Événement introuvable.');
-        redirect(ADMIN_URL . '/evenements.php');
+        redirect(ADMIN_URL . '/evenements');
     }
 }
 
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Invalider le cache après modification
         cacheFlush();
 
-        redirect(ADMIN_URL . '/evenements.php');
+        redirect(ADMIN_URL . '/evenements');
     }
 }
 
@@ -138,7 +138,7 @@ include __DIR__ . '/includes/header.php';
             </div>
 
             <div class="d-flex justify-between mt-3">
-                <a href="<?= ADMIN_URL ?>/evenements.php" class="btn btn-outline">← Retour</a>
+                <a href="<?= ADMIN_URL ?>/evenements" class="btn btn-outline">← Retour</a>
                 <button type="submit" class="btn btn-primary"><?= $isEdit ? 'Enregistrer' : 'Créer' ?></button>
             </div>
         </form>

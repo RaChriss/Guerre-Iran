@@ -66,7 +66,7 @@ include __DIR__ . '/includes/header.php';
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">Derniers articles</h2>
-            <a href="<?= ADMIN_URL ?>/article-edit.php" class="btn btn-sm btn-primary">+ Nouveau</a>
+            <a href="<?= ADMIN_URL ?>/article/nouveau" class="btn btn-sm btn-primary">+ Nouveau</a>
         </div>
         <div class="card-body card-body-flush">
             <?php if (empty($derniersArticles)): ?>
@@ -79,7 +79,7 @@ include __DIR__ . '/includes/header.php';
                         <?php foreach ($derniersArticles as $article): ?>
                             <tr>
                                 <td>
-                                    <a href="<?= ADMIN_URL ?>/article-edit.php?id=<?= $article['id'] ?>">
+                                    <a href="<?= ADMIN_URL ?>/article/<?= $article['id'] ?>">
                                         <strong><?= e($article['titre']) ?></strong>
                                     </a>
                                     <br>
@@ -104,7 +104,7 @@ include __DIR__ . '/includes/header.php';
             <?php endif; ?>
         </div>
         <div class="card-footer">
-            <a href="<?= ADMIN_URL ?>/articles.php">Voir tous les articles →</a>
+            <a href="<?= ADMIN_URL ?>/articles">Voir tous les articles →</a>
         </div>
     </div>
 
@@ -112,7 +112,7 @@ include __DIR__ . '/includes/header.php';
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">Chronologie récente</h2>
-            <a href="<?= ADMIN_URL ?>/evenement-edit.php" class="btn btn-sm btn-primary">+ Nouveau</a>
+            <a href="<?= ADMIN_URL ?>/evenement/nouveau" class="btn btn-sm btn-primary">+ Nouveau</a>
         </div>
         <div class="card-body card-body-flush">
             <?php if (empty($derniersEvenements)): ?>
@@ -125,7 +125,7 @@ include __DIR__ . '/includes/header.php';
                         <?php foreach ($derniersEvenements as $evenement): ?>
                             <tr>
                                 <td>
-                                    <a href="<?= ADMIN_URL ?>/evenement-edit.php?id=<?= $evenement['id'] ?>">
+                                    <a href="<?= ADMIN_URL ?>/evenement/<?= $evenement['id'] ?>">
                                         <strong><?= e($evenement['titre']) ?></strong>
                                     </a>
                                     <br>
@@ -147,7 +147,7 @@ include __DIR__ . '/includes/header.php';
             <?php endif; ?>
         </div>
         <div class="card-footer">
-            <a href="<?= ADMIN_URL ?>/evenements.php">Voir tous les événements →</a>
+            <a href="<?= ADMIN_URL ?>/evenements">Voir tous les événements →</a>
         </div>
     </div>
 </div>
@@ -159,16 +159,16 @@ include __DIR__ . '/includes/header.php';
     </div>
     <div class="card-body">
         <div class="flex-wrap-gap">
-            <a href="<?= ADMIN_URL ?>/article-edit.php" class="btn btn-primary">
+            <a href="<?= ADMIN_URL ?>/article/nouveau" class="btn btn-primary">
                 📝 Nouvel article
             </a>
-            <a href="<?= ADMIN_URL ?>/evenement-edit.php" class="btn btn-secondary">
+            <a href="<?= ADMIN_URL ?>/evenement/nouveau" class="btn btn-secondary">
                 📅 Nouvel événement
             </a>
-            <a href="<?= ADMIN_URL ?>/medias.php" class="btn btn-outline">
+            <a href="<?= ADMIN_URL ?>/medias" class="btn btn-outline">
                 🖼️ Gérer les médias
             </a>
-            <a href="<?= ADMIN_URL ?>/configuration.php" class="btn btn-outline">
+            <a href="<?= ADMIN_URL ?>/configuration" class="btn btn-outline">
                 ⚙️ Configuration
             </a>
         </div>

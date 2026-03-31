@@ -1,0 +1,58 @@
+Options +FollowSymlinks
+RewriteEngine On
+RewriteBase /admin/
+
+# Ne pas traiter les fichiers et répertoires existants
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# ============================================
+# URLS PROPRES ADMIN (sans extension .php)
+# ============================================
+
+# Page de connexion
+RewriteRule ^login$ login.php [L]
+RewriteRule ^logout$ logout.php [L]
+
+# Dashboard
+RewriteRule ^$ index.php [L]
+
+# Articles
+RewriteRule ^articles$ articles.php [L]
+RewriteRule ^article/nouveau$ article-edit.php [L]
+RewriteRule ^article/([0-9]+)$ article-edit.php?id=$1 [L]
+
+# Catégories
+RewriteRule ^categories$ categories.php [L]
+RewriteRule ^categorie/nouveau$ categorie-edit.php [L]
+RewriteRule ^categorie/([0-9]+)$ categorie-edit.php?id=$1 [L]
+
+# Événements
+RewriteRule ^evenements$ evenements.php [L]
+RewriteRule ^evenement/nouveau$ evenement-edit.php [L]
+RewriteRule ^evenement/([0-9]+)$ evenement-edit.php?id=$1 [L]
+
+# Pages
+RewriteRule ^pages$ pages.php [L]
+RewriteRule ^page/nouveau$ page-edit.php [L]
+RewriteRule ^page/([0-9]+)$ page-edit.php?id=$1 [L]
+
+# Médias
+RewriteRule ^medias$ medias.php [L]
+
+# Utilisateurs
+RewriteRule ^utilisateurs$ utilisateurs.php [L]
+RewriteRule ^utilisateur/nouveau$ utilisateur-edit.php [L]
+RewriteRule ^utilisateur/([0-9]+)$ utilisateur-edit.php?id=$1 [L]
+
+# Configuration
+RewriteRule ^configuration$ configuration.php [L]
+
+# Profil utilisateur
+RewriteRule ^profil$ profil.php [L]
+
+# Sécurité : Empêcher l'accès aux fichiers sensibles
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>

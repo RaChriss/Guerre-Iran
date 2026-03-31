@@ -10,28 +10,41 @@ RewriteRule ^templates/ - [F,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
+# ============================================
+# REDIRECTIONS 301 : anciennes URLs .html vers nouvelles
+# ============================================
+RewriteRule ^index\.html$ / [R=301,L]
+RewriteRule ^articles\.html$ /articles [R=301,L]
+RewriteRule ^chronologie\.html$ /chronologie [R=301,L]
+RewriteRule ^article-([a-z0-9-]+)-([0-9]+)\.html$ /article/$1-$2 [R=301,L]
+RewriteRule ^categorie-([a-z0-9-]+)-([0-9]+)\.html$ /categorie/$1-$2 [R=301,L]
+
+# ============================================
+# NOUVELLES URLS PROPRES (sans extension)
+# ============================================
+
 # Page d'accueil
-RewriteRule ^index\.html$ index.php [L]
+RewriteRule ^$ index.php?page=home [L]
 
-# Liste des articles avec pagination
-RewriteRule ^articles\.html$ index.php?page=articles [L]
-RewriteRule ^articles/page-([0-9]+)\.html$ index.php?page=articles&p=$1 [L]
+# Liste des articles
+RewriteRule ^articles$ index.php?page=articles [L]
+RewriteRule ^articles/page/([0-9]+)$ index.php?page=articles&p=$1 [L]
 
-# Article détail : /article-mon-titre-123.html
-RewriteRule ^article-([a-z0-9-]+)-([0-9]+)\.html$ index.php?page=article&slug=$1&id=$2 [L]
+# Article détail : /article/mon-titre-123
+RewriteRule ^article/([a-z0-9-]+)-([0-9]+)$ index.php?page=article&slug=$1&id=$2 [L]
 
-# Catégorie : /categorie-actualites-1.html
-RewriteRule ^categorie-([a-z0-9-]+)-([0-9]+)\.html$ index.php?page=categorie&slug=$1&id=$2 [L]
-RewriteRule ^categorie-([a-z0-9-]+)-([0-9]+)/page-([0-9]+)\.html$ index.php?page=categorie&slug=$1&id=$2&p=$3 [L]
+# Catégorie : /categorie/actualites-1
+RewriteRule ^categorie/([a-z0-9-]+)-([0-9]+)$ index.php?page=categorie&slug=$1&id=$2 [L]
+RewriteRule ^categorie/([a-z0-9-]+)-([0-9]+)/page/([0-9]+)$ index.php?page=categorie&slug=$1&id=$2&p=$3 [L]
 
 # Chronologie
-RewriteRule ^chronologie\.html$ index.php?page=chronologie [L]
+RewriteRule ^chronologie$ index.php?page=chronologie [L]
 
 # Sitemap XML
 RewriteRule ^sitemap\.xml$ sitemap.php [L]
 
-# Pages statiques : /a-propos.html, /contact.html, etc.
-RewriteRule ^([a-z0-9-]+)\.html$ index.php?page=static&slug=$1 [L]
+# Pages statiques : /a-propos, /contact, etc.
+RewriteRule ^([a-z0-9-]+)$ index.php?page=static&slug=$1 [L]
 
 # Redirection des erreurs
 ErrorDocument 404 /index.php?page=404

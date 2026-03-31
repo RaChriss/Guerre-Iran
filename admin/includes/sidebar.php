@@ -5,6 +5,7 @@
 
 // Page courante pour la mise en surbrillance
 $currentPage = basename($_SERVER['PHP_SELF']);
+$requestUri = $_SERVER['REQUEST_URI'];
 ?>
 <aside class="admin-sidebar" id="adminSidebar">
     <div class="sidebar-header">
@@ -17,8 +18,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <nav class="sidebar-nav">
         <ul class="nav-list">
             <li class="nav-item">
-                <a href="<?= ADMIN_URL ?>/index.php"
-                    class="nav-link <?= $currentPage === 'index.php' ? 'active' : '' ?>">
+                <a href="<?= ADMIN_URL ?>" class="nav-link <?= $currentPage === 'index.php' ? 'active' : '' ?>">
                     <span class="nav-icon icon icon-dashboard"></span>
                     <span class="nav-text">Tableau de bord</span>
                 </a>
@@ -27,7 +27,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <li class="nav-section">Contenus</li>
 
             <li class="nav-item">
-                <a href="<?= ADMIN_URL ?>/articles.php"
+                <a href="<?= ADMIN_URL ?>/articles"
                     class="nav-link <?= in_array($currentPage, ['articles.php', 'article-edit.php']) ? 'active' : '' ?>">
                     <span class="nav-icon icon icon-article"></span>
                     <span class="nav-text">Articles</span>
@@ -35,7 +35,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             </li>
 
             <li class="nav-item">
-                <a href="<?= ADMIN_URL ?>/categories.php"
+                <a href="<?= ADMIN_URL ?>/categories"
                     class="nav-link <?= in_array($currentPage, ['categories.php', 'categorie-edit.php']) ? 'active' : '' ?>">
                     <span class="nav-icon icon icon-folder"></span>
                     <span class="nav-text">Catégories</span>
@@ -43,7 +43,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             </li>
 
             <li class="nav-item">
-                <a href="<?= ADMIN_URL ?>/evenements.php"
+                <a href="<?= ADMIN_URL ?>/evenements"
                     class="nav-link <?= in_array($currentPage, ['evenements.php', 'evenement-edit.php']) ? 'active' : '' ?>">
                     <span class="nav-icon icon icon-timeline"></span>
                     <span class="nav-text">Chronologie</span>
@@ -51,7 +51,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             </li>
 
             <li class="nav-item">
-                <a href="<?= ADMIN_URL ?>/pages.php"
+                <a href="<?= ADMIN_URL ?>/pages"
                     class="nav-link <?= in_array($currentPage, ['pages.php', 'page-edit.php']) ? 'active' : '' ?>">
                     <span class="nav-icon icon icon-page"></span>
                     <span class="nav-text">Pages</span>
@@ -59,8 +59,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             </li>
 
             <li class="nav-item">
-                <a href="<?= ADMIN_URL ?>/medias.php"
-                    class="nav-link <?= $currentPage === 'medias.php' ? 'active' : '' ?>">
+                <a href="<?= ADMIN_URL ?>/medias" class="nav-link <?= $currentPage === 'medias.php' ? 'active' : '' ?>">
                     <span class="nav-icon icon icon-image"></span>
                     <span class="nav-text">Médias</span>
                 </a>
@@ -69,7 +68,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <li class="nav-section">Administration</li>
 
             <li class="nav-item">
-                <a href="<?= ADMIN_URL ?>/configuration.php"
+                <a href="<?= ADMIN_URL ?>/configuration"
                     class="nav-link <?= $currentPage === 'configuration.php' ? 'active' : '' ?>">
                     <span class="nav-icon icon icon-settings"></span>
                     <span class="nav-text">Configuration</span>
@@ -78,7 +77,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
             <?php if (isAdmin()): ?>
                 <li class="nav-item">
-                    <a href="<?= ADMIN_URL ?>/utilisateurs.php"
+                    <a href="<?= ADMIN_URL ?>/utilisateurs"
                         class="nav-link <?= in_array($currentPage, ['utilisateurs.php', 'utilisateur-edit.php']) ? 'active' : '' ?>">
                         <span class="nav-icon icon icon-users"></span>
                         <span class="nav-text">Utilisateurs</span>
@@ -89,7 +88,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     </nav>
 
     <div class="sidebar-footer">
-        <a href="<?= ADMIN_URL ?>/logout.php" class="nav-link logout-link">
+        <a href="<?= ADMIN_URL ?>/logout" class="nav-link logout-link">
             <span class="nav-icon icon icon-logout"></span>
             <span class="nav-text">Déconnexion</span>
         </a>

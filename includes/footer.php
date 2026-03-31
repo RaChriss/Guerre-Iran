@@ -24,17 +24,17 @@ $instagram = getConfig('instagram', '');
                 <h2 class="footer-title">Navigation</h2>
                 <ul class="footer-links">
                     <li><a href="<?= SITE_URL ?>/">Accueil</a></li>
-                    <li><a href="<?= SITE_URL ?>/articles.html">Articles</a></li>
-                    <li><a href="<?= SITE_URL ?>/chronologie.html">Chronologie</a></li>
-                    <li><a href="<?= SITE_URL ?>/a-propos.html">À propos</a></li>
+                    <li><a href="<?= SITE_URL ?>/articles">Articles</a></li>
+                    <li><a href="<?= SITE_URL ?>/chronologie">Chronologie</a></li>
+                    <li><a href="<?= SITE_URL ?>/a-propos">À propos</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
                 <h2 class="footer-title">Informations</h2>
                 <ul class="footer-links">
-                    <li><a href="<?= SITE_URL ?>/contact.html">Contact</a></li>
-                    <li><a href="<?= SITE_URL ?>/mentions-legales.html">Mentions légales</a></li>
+                    <li><a href="<?= SITE_URL ?>/contact">Contact</a></li>
+                    <li><a href="<?= SITE_URL ?>/mentions-legales">Mentions légales</a></li>
                 </ul>
             </div>
 

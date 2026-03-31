@@ -11,7 +11,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     $id = (int) $_GET['delete'];
     dbExecute("DELETE FROM pages WHERE id = ?", [$id]);
     setFlash('success', 'Page supprimée.');
-    redirect(ADMIN_URL . '/pages.php');
+    redirect(ADMIN_URL . '/pages');
 }
 
 $pages = dbFetchAll("SELECT * FROM pages ORDER BY titre");
@@ -22,7 +22,7 @@ include __DIR__ . '/includes/header.php';
 <div class="card">
     <div class="card-header">
         <h2 class="card-title">Pages statiques</h2>
-        <a href="<?= ADMIN_URL ?>/page-edit.php" class="btn btn-primary">+ Nouvelle page</a>
+        <a href="<?= ADMIN_URL ?>/page/nouveau" class="btn btn-primary">+ Nouvelle page</a>
     </div>
 
     <div class="table-responsive">
@@ -47,11 +47,11 @@ include __DIR__ . '/includes/header.php';
                     <?php foreach ($pages as $pg): ?>
                         <tr>
                             <td>
-                                <a href="<?= ADMIN_URL ?>/page-edit.php?id=<?= $pg['id'] ?>">
+                                <a href="<?= ADMIN_URL ?>/page/<?= $pg['id'] ?>">
                                     <strong><?= e($pg['titre']) ?></strong>
                                 </a>
                             </td>
-                            <td><code>/<?= e($pg['slug']) ?>.html</code></td>
+                            <td><code>/<?= e($pg['slug']) ?></code></td>
                             <td>
                                 <?php if ($pg['actif']): ?>
                                     <span class="badge badge-success">Active</span>
@@ -62,9 +62,8 @@ include __DIR__ . '/includes/header.php';
                             <td><?= formatDate($pg['date_modification']) ?></td>
                             <td>
                                 <div class="actions">
-                                    <a href="<?= ADMIN_URL ?>/page-edit.php?id=<?= $pg['id'] ?>"
-                                        class="btn btn-sm btn-outline">✏️</a>
-                                    <a href="<?= ADMIN_URL ?>/pages.php?delete=<?= $pg['id'] ?>" class="btn btn-sm btn-danger"
+                                    <a href="<?= ADMIN_URL ?>/page/<?= $pg['id'] ?>" class="btn btn-sm btn-outline">✏️</a>
+                                    <a href="<?= ADMIN_URL ?>/pages?delete=<?= $pg['id'] ?>" class="btn btn-sm btn-danger"
                                         data-confirm="Supprimer cette page ?">🗑️</a>
                                 </div>
                             </td>

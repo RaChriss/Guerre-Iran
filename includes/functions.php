@@ -301,7 +301,7 @@ function pageTitle(string $title = ''): string
  */
 function articleUrl(array $article): string
 {
-    return SITE_URL . '/article-' . $article['slug'] . '-' . $article['id'] . '.html';
+    return SITE_URL . '/article/' . $article['slug'] . '-' . $article['id'];
 }
 
 /**
@@ -309,7 +309,7 @@ function articleUrl(array $article): string
  */
 function categoryUrl(array $category): string
 {
-    return SITE_URL . '/categorie-' . $category['slug'] . '-' . $category['id'] . '.html';
+    return SITE_URL . '/categorie/' . $category['slug'] . '-' . $category['id'];
 }
 
 /**

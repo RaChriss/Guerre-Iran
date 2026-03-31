@@ -8,7 +8,7 @@ require_once __DIR__ . '/includes/auth.php';
 // Vérifier les droits admin
 if (!isAdmin()) {
     setFlash('error', 'Accès non autorisé.');
-    redirect(ADMIN_URL . '/index.php');
+    redirect(ADMIN_URL);
 }
 
 $pageTitle = 'Utilisateurs';
@@ -22,7 +22,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     } else {
         setFlash('error', 'Vous ne pouvez pas vous supprimer vous-même.');
     }
-    redirect(ADMIN_URL . '/utilisateurs.php');
+    redirect(ADMIN_URL . '/utilisateurs');
 }
 
 $utilisateurs = dbFetchAll("SELECT * FROM administrateurs ORDER BY date_creation DESC");
@@ -33,7 +33,7 @@ include __DIR__ . '/includes/header.php';
 <div class="card">
     <div class="card-header">
         <h2 class="card-title">Liste des utilisateurs</h2>
-        <a href="<?= ADMIN_URL ?>/utilisateur-edit.php" class="btn btn-primary">+ Nouvel utilisateur</a>
+        <a href="<?= ADMIN_URL ?>/utilisateur/nouveau" class="btn btn-primary">+ Nouvel utilisateur</a>
     </div>
 
     <div class="table-responsive">
@@ -76,10 +76,10 @@ include __DIR__ . '/includes/header.php';
                         </td>
                         <td>
                             <div class="actions">
-                                <a href="<?= ADMIN_URL ?>/utilisateur-edit.php?id=<?= $user['id'] ?>"
+                                <a href="<?= ADMIN_URL ?>/utilisateur/<?= $user['id'] ?>"
                                     class="btn btn-sm btn-outline">✏️</a>
                                 <?php if ($user['id'] !== $_SESSION['admin_id']): ?>
-                                    <a href="<?= ADMIN_URL ?>/utilisateurs.php?delete=<?= $user['id'] ?>"
+                                    <a href="<?= ADMIN_URL ?>/utilisateurs?delete=<?= $user['id'] ?>"
                                         class="btn btn-sm btn-danger" data-confirm="Supprimer cet utilisateur ?">🗑️</a>
                                 <?php endif; ?>
                             </div>

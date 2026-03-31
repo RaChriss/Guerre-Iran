@@ -16,7 +16,7 @@ if ($isEdit) {
     $article = dbFetchOne("SELECT * FROM articles WHERE id = ?", [$id]);
     if (!$article) {
         setFlash('error', 'Article introuvable.');
-        redirect(ADMIN_URL . '/articles.php');
+        redirect(ADMIN_URL . '/articles');
     }
 }
 
@@ -164,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Invalider le cache après modification
         cacheFlush();
 
-        redirect(ADMIN_URL . '/article-edit.php?id=' . $id);
+        redirect(ADMIN_URL . '/article/' . $id);
     }
 }
 
@@ -194,7 +194,7 @@ include __DIR__ . '/includes/header.php';
                         <label for="slug">Slug (URL)</label>
                         <input type="text" id="slug" name="slug" value="<?= e($data['slug']) ?>" class="form-control"
                             placeholder="Généré automatiquement">
-                        <div class="form-hint">L'URL sera : /article-<em>slug</em>-<?= $id ?: 'ID' ?>.html</div>
+                        <div class="form-hint">L'URL sera : /article/<em>slug</em>-<?= $id ?: 'ID' ?></div>
                     </div>
 
                     <div class="form-group">
@@ -349,7 +349,7 @@ Paragraphe avec **gras** et *italique*.
     </div>
 
     <div class="mt-3 d-flex justify-between">
-        <a href="<?= ADMIN_URL ?>/articles.php" class="btn btn-outline">← Retour à la liste</a>
+        <a href="<?= ADMIN_URL ?>/articles" class="btn btn-outline">← Retour à la liste</a>
         <button type="submit" class="btn btn-primary">
             <?= $isEdit ? 'Enregistrer' : 'Créer' ?>
         </button>

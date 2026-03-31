@@ -68,7 +68,7 @@ $menuCategories = dbFetchAllCached(
                 <nav class="main-nav" id="main-navigation" role="navigation" aria-label="Navigation principale">
                     <ul class="nav-list">
                         <li class="nav-item"><a href="<?= SITE_URL ?>/" class="nav-link">Accueil</a></li>
-                        <li class="nav-item"><a href="<?= SITE_URL ?>/articles.html" class="nav-link">Articles</a></li>
+                        <li class="nav-item"><a href="<?= SITE_URL ?>/articles" class="nav-link">Articles</a></li>
                         <li class="nav-item nav-dropdown">
                             <button class="nav-link nav-dropdown-toggle" type="button" aria-expanded="false"
                                 aria-controls="nav-categories-menu">
@@ -85,7 +85,7 @@ $menuCategories = dbFetchAllCached(
                                 <?php endforeach; ?>
                             </ul>
                         </li>
-                        <li class="nav-item"><a href="<?= SITE_URL ?>/chronologie.html" class="nav-link">Chronologie</a>
+                        <li class="nav-item"><a href="<?= SITE_URL ?>/chronologie" class="nav-link">Chronologie</a>
                         </li>
                     </ul>
                 </nav>

@@ -7,7 +7,7 @@ require_once __DIR__ . '/../includes/functions.php';
 
 // Si déjà connecté, rediriger vers le dashboard
 if (isLoggedIn()) {
-    redirect(ADMIN_URL . '/index.php');
+    redirect(ADMIN_URL);
 }
 
 $error = '';
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_regenerate_id(true);
 
             setFlash('success', 'Bienvenue ' . e($_SESSION['admin_name'] ?: $user['username']) . ' !');
-            redirect(ADMIN_URL . '/index.php');
+            redirect(ADMIN_URL);
         } else {
             $error = 'Identifiants incorrects.';
         }

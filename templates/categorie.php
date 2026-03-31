@@ -42,7 +42,7 @@ $articles = dbFetchAllCached(
 );
 
 // Pagination
-$pagination = paginate($total, $perPage, $currentPage, SITE_URL . '/categorie-' . $categorie['slug'] . '-' . $id . '/page-{page}.html');
+$pagination = paginate($total, $perPage, $currentPage, SITE_URL . '/categorie/' . $categorie['slug'] . '-' . $id . '/page/{page}');
 
 $metaTitle = $categorie['nom'];
 $metaDescription = $categorie['description'] ?: 'Découvrez tous les articles de la catégorie ' . $categorie['nom'];
@@ -55,7 +55,7 @@ include INCLUDES_PATH . '/header.php';
         <nav class="breadcrumb" aria-label="Fil d'Ariane">
             <a href="<?= SITE_URL ?>/">Accueil</a>
             <span>&gt;</span>
-            <a href="<?= SITE_URL ?>/articles.html">Articles</a>
+            <a href="<?= SITE_URL ?>/articles">Articles</a>
             <span>&gt;</span>
             <span aria-current="page"><?= e($categorie['nom']) ?></span>
         </nav>
@@ -72,7 +72,7 @@ include INCLUDES_PATH . '/header.php';
     <?php if (empty($articles)): ?>
         <div class="empty-state">
             <p>Aucun article dans cette catégorie pour le moment.</p>
-            <a href="<?= SITE_URL ?>/articles.html" class="btn btn-primary">Voir tous les articles</a>
+            <a href="<?= SITE_URL ?>/articles" class="btn btn-primary">Voir tous les articles</a>
         </div>
     <?php else: ?>
         <div class="articles-grid">

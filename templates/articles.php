@@ -55,7 +55,7 @@ $categories = dbFetchAllCached(
 );
 
 // Pagination
-$pagination = paginate($total, $perPage, $currentPage, SITE_URL . '/articles/page-{page}.html');
+$pagination = paginate($total, $perPage, $currentPage, SITE_URL . '/articles/page/{page}');
 
 $metaTitle = 'Tous les articles';
 $metaDescription = 'Découvrez tous nos articles sur la situation en Iran : actualités, analyses, témoignages et plus encore.';
@@ -136,7 +136,7 @@ include INCLUDES_PATH . '/header.php';
                 <h2 class="widget-title">Catégories</h2>
                 <ul class="category-list">
                     <li>
-                        <a href="<?= SITE_URL ?>/articles.html" class="<?= !$categorieFilter ? 'active' : '' ?>">
+                        <a href="<?= SITE_URL ?>/articles" class="<?= !$categorieFilter ? 'active' : '' ?>">
                             Toutes les catégories
                         </a>
                     </li>

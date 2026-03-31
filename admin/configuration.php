@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     cacheInvalidateConfig();
 
     setFlash('success', 'Configuration enregistrée.');
-    redirect(ADMIN_URL . '/configuration.php');
+    redirect(ADMIN_URL . '/configuration');
 }
 
 // Récupération des valeurs
