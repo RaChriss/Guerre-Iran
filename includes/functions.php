@@ -367,3 +367,53 @@ function getCurrentUser(): ?array
         [$_SESSION['admin_id']]
     );
 }
+
+/**
+ * Génère les attributs srcset pour les images responsives
+ */
+function imageSrcset(?string $path, array $sizes = [640, 1024, 1280]): string
+{
+    if (!$path || !file_exists(UPLOADS_PATH . '/' . $path)) {
+        return '';
+    }
+
+    $baseUrl = UPLOADS_URL . '/' . $path;
+    $extension = pathinfo($path, PATHINFO_EXTENSION);
+
+    // Generate srcset for responsive images
+    $srcset = [];
+    foreach ($sizes as $size) {
+        $srcset[] = UPLOADS_URL . '/' . substr($path, 0, -strlen($extension)) . "_w{$size}.{$extension} {$size}w";
+    }
+
+    return !empty($srcset) ? implode(', ', $srcset) : '';
+}
+
+/**
+ * Génère un attribut HTML pour les images responsives avec sizes
+ */
+function responsiveImage(
+    ?string $path,
+    string $alt,
+    array $sizes = [640, 1024, 1280],
+    string $class = '',
+    string $loading = 'lazy',
+    string $fetchpriority = ''
+): string {
+    $url = imageUrl($path);
+    
+    // Build img tag with responsive attributes
+    $attrs = [
+        'src="' . e($url) . '"',
+        'alt="' . e($alt) . '"',
+        'loading="' . e($loading) . '"',
+        'sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 50vw"',
+        $class ? 'class="' . e($class) . '"' : '',
+        $fetchpriority ? 'fetchpriority="' . e($fetchpriority) . '"' : '',
+    ];
+
+    // Filter empty attributes
+    $attrs = array_filter($attrs);
+
+    return '<img ' . implode(' ', $attrs) . '>';
+}
